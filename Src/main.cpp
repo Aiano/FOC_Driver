@@ -19,6 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
 #include "tim.h"
 #include "gpio.h"
 
@@ -26,6 +27,7 @@
 /* USER CODE BEGIN Includes */
 #include "pwm.h"
 #include "FOC.h"
+#include "encoder.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,7 +51,8 @@
 #pragma ide diagnostic ignored "EndlessLoop"
 /* USER CODE BEGIN PV */
 FOCDriverType driver;
-float given_voltage = 4;
+float given_voltage = 5;
+uint16_t adc1_value = 0, adc2_value = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -93,6 +96,8 @@ int main(void) {
     MX_GPIO_Init();
     MX_TIM1_Init();
     MX_TIM2_Init();
+    MX_ADC1_Init();
+    MX_ADC2_Init();
     /* USER CODE BEGIN 2 */
 
     // init FOC driver
@@ -104,12 +109,13 @@ int main(void) {
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
     while (1) {
-//        FOC_Driver_Set_Target(&driver,angleControl,3.14,given_voltage);
-        FOC_Driver_Set_Target(&driver, angleControl, 3.14, given_voltage);
-        HAL_Delay(1000);
-        FOC_Driver_Set_Target(&driver, angleControl, 0, given_voltage);
-        HAL_Delay(1000);
-
+//        FOC_Driver_Set_Target(&driver,velocityControl,3,given_voltage);
+//        FOC_Driver_Set_Target(&driver, angleControl, 3.14, given_voltage);
+//        HAL_Delay(1000);
+//        FOC_Driver_Set_Target(&driver, angleControl, 0, given_voltage);
+//        HAL_Delay(1000);
+        adc1_value = get_adc_value(&hadc1);
+        adc2_value = get_adc_value(&hadc2);
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
@@ -124,6 +130,7 @@ int main(void) {
 void SystemClock_Config(void) {
     RCC_OscInitTypeDef RCC_OscInitStruct = {0};
     RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+    RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
     /** Initializes the RCC Oscillators according to the specified parameters
     * in the RCC_OscInitTypeDef structure.
@@ -150,15 +157,20 @@ void SystemClock_Config(void) {
     if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK) {
         Error_Handler();
     }
+    PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
+    PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV6;
+    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
+        Error_Handler();
+    }
 }
 
 /* USER CODE BEGIN 4 */
 
 void InitFOCDriver() {
     driver.voltage_power_supply = 12;
-    driver.phaseATIMHandler = &htim1;
-    driver.phaseBTIMHandler = &htim1;
-    driver.phaseCTIMHandler = &htim1;
+    driver.phaseATIMHandle = &htim1;
+    driver.phaseBTIMHandle = &htim1;
+    driver.phaseCTIMHandle = &htim1;
     driver.phaseAChannel = TIM_CHANNEL_1;
     driver.phaseBChannel = TIM_CHANNEL_2;
     driver.phaseCChannel = TIM_CHANNEL_3;

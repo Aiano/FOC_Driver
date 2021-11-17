@@ -5,13 +5,13 @@
 #include "FOC.h"
 
 void FOC_Driver_Init(FOCDriverType *driver) {
-    pwm_init(driver->phaseATIMHandler, driver->phaseAChannel);
-    pwm_init(driver->phaseBTIMHandler, driver->phaseBChannel);
-    pwm_init(driver->phaseCTIMHandler, driver->phaseCChannel);
+    pwm_init(driver->phaseATIMHandle, driver->phaseAChannel);
+    pwm_init(driver->phaseBTIMHandle, driver->phaseBChannel);
+    pwm_init(driver->phaseCTIMHandle, driver->phaseCChannel);
 
-    pwm_set_value(driver->phaseATIMHandler, driver->phaseAChannel, 0);
-    pwm_set_value(driver->phaseBTIMHandler, driver->phaseBChannel, 0);
-    pwm_set_value(driver->phaseCTIMHandler, driver->phaseCChannel, 0);
+    pwm_set_value(driver->phaseATIMHandle, driver->phaseAChannel, 0);
+    pwm_set_value(driver->phaseBTIMHandle, driver->phaseBChannel, 0);
+    pwm_set_value(driver->phaseCTIMHandle, driver->phaseCChannel, 0);
 }
 
 void FOC_Driver_Set_Target(FOCDriverType *driver, FOCMotionControlType motionControlType, float target, float Uq) {
@@ -71,9 +71,9 @@ void FOC_Angle_Control(FOCDriverType *driver, float angle, float Uq) {
     int pwm_b = (int) (u_b / driver->voltage_power_supply * driver->pwm_tim_counter_period);
     int pwm_c = (int) (u_c / driver->voltage_power_supply * driver->pwm_tim_counter_period);
 
-    pwm_set_value(driver->phaseATIMHandler, driver->phaseAChannel, pwm_a);
-    pwm_set_value(driver->phaseBTIMHandler, driver->phaseBChannel, pwm_b);
-    pwm_set_value(driver->phaseCTIMHandler, driver->phaseCChannel, pwm_c);
+    pwm_set_value(driver->phaseATIMHandle, driver->phaseAChannel, pwm_a);
+    pwm_set_value(driver->phaseBTIMHandle, driver->phaseBChannel, pwm_b);
+    pwm_set_value(driver->phaseCTIMHandle, driver->phaseCChannel, pwm_c);
 }
 
 /**

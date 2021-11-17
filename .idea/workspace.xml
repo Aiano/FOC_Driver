@@ -14,7 +14,23 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3f6e020e-3ce1-483d-ac24-30d53a12b805" name="Changes" comment="" />
+    <list default="true" id="3f6e020e-3ce1-483d-ac24-30d53a12b805" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc_ex.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Inc/adc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Inc/encoder.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Src/adc.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Src/encoder.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mxproject" beforeDir="false" afterPath="$PROJECT_DIR$/.mxproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FOC_Driver.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/FOC_Driver.ioc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Inc/FOC.h" beforeDir="false" afterPath="$PROJECT_DIR$/Inc/FOC.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Inc/stm32f1xx_hal_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Inc/stm32f1xx_hal_conf.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/FOC.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Src/FOC.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Src/main.cpp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,6 +40,9 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
       <filtered-out-file-type name="LOCAL_BRANCH" />
@@ -33,6 +52,7 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="1zaklsmKxFuJnaTJnGPuiPays4i" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -62,6 +82,16 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="OCD FOC_Driver" type="com.jetbrains.cidr.embedded.openocd.conf.type" factoryName="com.jetbrains.cidr.embedded.openocd.conf.factory" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FOC_Driver" TARGET_NAME="FOC_Driver.elf" CONFIG_NAME="Debug" version="1" RUN_TARGET_PROJECT_NAME="FOC_Driver" RUN_TARGET_NAME="FOC_Driver.elf">
       <openocd version="1" gdb-port="3333" telnet-port="4444" board-config="D:\ClionProjects\FOC_Driver\config.cfg" reset-type="INIT" download-type="UPDATED_ONLY">
         <debugger kind="GDB" isBundled="true" />
@@ -89,17 +119,33 @@
       <workItem from="1636338260223" duration="9708000" />
       <workItem from="1636359510490" duration="6142000" />
       <workItem from="1636892646949" duration="204000" />
+      <workItem from="1636892865136" duration="1234000" />
+      <workItem from="1636902522865" duration="1215000" />
+      <workItem from="1636943996177" duration="972000" />
+      <workItem from="1637161984477" duration="1536000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="XDebuggerManager">
     <watches-manager>
       <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
-        <watch expression="delay_us" language="ObjectiveC" />
-        <watch expression="i" language="ObjectiveC" />
+        <watch expression="adc1_value" language="ObjectiveC" />
+        <watch expression="adc2_value" language="ObjectiveC" />
       </configuration>
     </watches-manager>
   </component>
