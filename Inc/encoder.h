@@ -8,7 +8,7 @@
 #include <cmath>
 #include "adc.h"
 
-#define PI 3.14
+#define PI 3.1415
 
 typedef struct {
     ADC_HandleTypeDef *encoderADCHandle;

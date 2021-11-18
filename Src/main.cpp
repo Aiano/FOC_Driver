@@ -51,8 +51,10 @@
 #pragma ide diagnostic ignored "EndlessLoop"
 /* USER CODE BEGIN PV */
 FOCDriverType driver;
+FOCEncoderType encoder;
 float given_voltage = 5;
-uint16_t adc1_value = 0, adc2_value = 0;
+
+float angle = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -60,6 +62,7 @@ void SystemClock_Config(void);
 
 /* USER CODE BEGIN PFP */
 void InitFOCDriver();
+void InitFOCEncoder();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -102,6 +105,7 @@ int main(void) {
 
     // init FOC driver
     InitFOCDriver();
+    InitFOCEncoder();
 
     HAL_GPIO_WritePin(EN_GPIO_Port, EN_Pin, GPIO_PIN_SET);
     /* USER CODE END 2 */
@@ -114,8 +118,8 @@ int main(void) {
 //        HAL_Delay(1000);
 //        FOC_Driver_Set_Target(&driver, angleControl, 0, given_voltage);
 //        HAL_Delay(1000);
-        adc1_value = get_adc_value(&hadc1);
-        adc2_value = get_adc_value(&hadc2);
+        angle = get_encoder_angle(&encoder);
+
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
@@ -178,6 +182,12 @@ void InitFOCDriver() {
     driver.pwm_tim_counter_period = 200;
     driver.polar_pair_number = 7;
     FOC_Driver_Init(&driver);
+}
+
+void InitFOCEncoder(){
+    encoder.encoder_bit_number = 12;
+    encoder.encoderADCHandle = &hadc2;
+    encoder.offset_angle = 0;
 }
 /* USER CODE END 4 */
 

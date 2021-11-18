@@ -29,5 +29,5 @@ float get_encoder_angle(FOCEncoderType *encoder) {
     if(adc_value == -1) return -1;
 
     float output_angle = (float)adc_value / pow(2,encoder->encoder_bit_number) * 2 * PI + encoder->offset_angle;
-    return 0;
+    return output_angle;
 }

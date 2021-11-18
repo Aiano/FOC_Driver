@@ -14,21 +14,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3f6e020e-3ce1-483d-ac24-30d53a12b805" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_adc_ex.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_adc_ex.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Inc/adc.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Inc/encoder.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Src/adc.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Src/encoder.cpp" afterDir="false" />
+    <list default="true" id="3f6e020e-3ce1-483d-ac24-30d53a12b805" name="Changes" comment="add analog encoder as5600.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mxproject" beforeDir="false" afterPath="$PROJECT_DIR$/.mxproject" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC_Driver.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/FOC_Driver.ioc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Inc/FOC.h" beforeDir="false" afterPath="$PROJECT_DIR$/Inc/FOC.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Inc/stm32f1xx_hal_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Inc/stm32f1xx_hal_conf.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/FOC.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Src/FOC.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Inc/encoder.h" beforeDir="false" afterPath="$PROJECT_DIR$/Inc/encoder.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/encoder.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Src/encoder.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,6 +58,7 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="CPPToolchains" />
   </component>
   <component name="RecentsManager">
@@ -78,11 +68,6 @@
   </component>
   <component name="RunManager" selected="OpenOCD Download &amp; Run.OCD FOC_Driver">
     <configuration name="FOC_Driver.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FOC_Driver" TARGET_NAME="FOC_Driver.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="FOC_Driver" RUN_TARGET_NAME="FOC_Driver.elf">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -122,8 +107,17 @@
       <workItem from="1636892865136" duration="1234000" />
       <workItem from="1636902522865" duration="1215000" />
       <workItem from="1636943996177" duration="972000" />
-      <workItem from="1637161984477" duration="1536000" />
+      <workItem from="1637161984477" duration="1595000" />
+      <workItem from="1637196527292" duration="934000" />
     </task>
+    <task id="LOCAL-00001" summary="add analog encoder as5600.">
+      <created>1637163579249</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1637163579249</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,11 +135,15 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add analog encoder as5600." />
+    <option name="LAST_COMMIT_MESSAGE" value="add analog encoder as5600." />
+  </component>
   <component name="XDebuggerManager">
     <watches-manager>
       <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
-        <watch expression="adc1_value" language="ObjectiveC" />
-        <watch expression="adc2_value" language="ObjectiveC" />
+        <watch expression="angle" language="ObjectiveC" />
+        <watch expression="adc_value" />
       </configuration>
     </watches-manager>
   </component>
