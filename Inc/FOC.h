@@ -21,8 +21,8 @@ enum FOCModulationType {
 };
 
 enum FOCMotionControlType {
-    angleControl = 0,
-    velocityControl
+    openLoopAngleControl = 0,
+    openLoopVelocityControl
 };
 
 typedef struct {
@@ -42,9 +42,9 @@ void FOC_Driver_Init(FOCDriverType *driver);
 
 void FOC_Driver_Set_Target(FOCDriverType *driver, FOCMotionControlType motionControlType, float target, float Uq);
 
-void FOC_Angle_Control(FOCDriverType *driver, float angle, float Uq);
+void FOC_Open_Loop_Angle_Control(FOCDriverType *driver, float angle, float Uq);
 
-void FOC_Velocity_Control(FOCDriverType *driver, float velocity, float Uq);
+void FOC_Open_Loop_Velocity_Control(FOCDriverType *driver, float velocity, float Uq);
 
 void Delay_us(int us);
 

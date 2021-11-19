@@ -17,31 +17,31 @@ void FOC_Driver_Init(FOCDriverType *driver) {
 void FOC_Driver_Set_Target(FOCDriverType *driver, FOCMotionControlType motionControlType, float target, float Uq) {
     if (driver->modulationType == SinePWM) {
         switch (motionControlType) {
-            case angleControl:
+            case openLoopAngleControl:
             {
                 static float last_target = 0;
                 float target_error = target - last_target;
                 if (target_error > 0) {
                     for (float i = last_target * driver->polar_pair_number;
                     i < target * driver->polar_pair_number; i += ANGLE_CONTROL_STEP) {
-                        FOC_Angle_Control(driver, i, Uq);
+                        FOC_Open_Loop_Angle_Control(driver, i, Uq);
                         Delay_us(ANGLE_CONTROL_DELAY_US);
                     }
                 } else {
                     for (float i = last_target * driver->polar_pair_number;
                     i > target * driver->polar_pair_number; i -= ANGLE_CONTROL_STEP) {
-                        FOC_Angle_Control(driver, i, Uq);
+                        FOC_Open_Loop_Angle_Control(driver, i, Uq);
                         Delay_us(ANGLE_CONTROL_DELAY_US);
                     }
                 }
                 last_target = target;
                 break;
             }
-            case velocityControl:
+            case openLoopVelocityControl:
             {
                 float delay_us = ANGLE_CONTROL_STEP/(driver->polar_pair_number * target)*1000000;
                 for(float i = 0;i<_2PI;i+=ANGLE_CONTROL_STEP){
-                    FOC_Angle_Control(driver,i,Uq);
+                    FOC_Open_Loop_Angle_Control(driver, i, Uq);
                     Delay_us(delay_us);
                 }
                 break;
@@ -57,7 +57,7 @@ void FOC_Driver_Set_Target(FOCDriverType *driver, FOCMotionControlType motionCon
  * @param angle rad
  * @param Uq
  */
-void FOC_Angle_Control(FOCDriverType *driver, float angle, float Uq) {
+void FOC_Open_Loop_Angle_Control(FOCDriverType *driver, float angle, float Uq) {
     // Inverse Park transformation:
     float U_alpha = -Uq * sin(angle);
     float U_beta = Uq * cos(angle);
@@ -81,7 +81,7 @@ void FOC_Angle_Control(FOCDriverType *driver, float angle, float Uq) {
  * @param velocity rad/s
  * @param Uq
  */
-void FOC_Velocity_Control(FOCDriverType *driver, float velocity, float Uq) {
+void FOC_Open_Loop_Velocity_Control(FOCDriverType *driver, float velocity, float Uq) {
 
 }
 

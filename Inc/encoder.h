@@ -24,4 +24,8 @@ typedef struct {
 uint16_t get_adc_value(ADC_HandleTypeDef *adcHandleTypeDef);
 
 float get_encoder_angle(FOCEncoderType *encoder);
+
+void set_offset_angle(FOCEncoderType *encoder, float offset);
+
+void set_the_current_angle_to_zero(FOCEncoderType *encoder);
 #endif //FOC_DRIVER_ENCODER_H

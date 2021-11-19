@@ -58,8 +58,14 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define EN_Pin GPIO_PIN_9
-#define EN_GPIO_Port GPIOB
+#define Laser_Triode_Pin GPIO_PIN_4
+#define Laser_Triode_GPIO_Port GPIOB
+#define LED_Triode_Pin GPIO_PIN_5
+#define LED_Triode_GPIO_Port GPIOB
+#define EN2_Pin GPIO_PIN_8
+#define EN2_GPIO_Port GPIOB
+#define EN1_Pin GPIO_PIN_9
+#define EN1_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
