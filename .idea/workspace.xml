@@ -14,21 +14,23 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3f6e020e-3ce1-483d-ac24-30d53a12b805" name="Changes" comment="little adjustment to encoder">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="3f6e020e-3ce1-483d-ac24-30d53a12b805" name="Changes" comment="configuration">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Inc/pid.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Inc/uart_parser.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Inc/vl53l0x.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Src/pid.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Src/uart_parser.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Src/vl53l0x.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mxproject" beforeDir="false" afterPath="$PROJECT_DIR$/.mxproject" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOC_Driver.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/FOC_Driver.ioc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Inc/FOC.h" beforeDir="false" afterPath="$PROJECT_DIR$/Inc/FOC.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Inc/encoder.h" beforeDir="false" afterPath="$PROJECT_DIR$/Inc/encoder.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Inc/main.h" beforeDir="false" afterPath="$PROJECT_DIR$/Inc/main.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Inc/stm32f1xx_hal_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/Inc/stm32f1xx_hal_conf.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Inc/tim.h" beforeDir="false" afterPath="$PROJECT_DIR$/Inc/tim.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/FOC.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Src/FOC.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/encoder.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Src/encoder.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Src/gpio.c" beforeDir="false" afterPath="$PROJECT_DIR$/Src/gpio.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Inc/stm32f1xx_it.h" beforeDir="false" afterPath="$PROJECT_DIR$/Inc/stm32f1xx_it.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/stm32f1xx_it.c" beforeDir="false" afterPath="$PROJECT_DIR$/Src/stm32f1xx_it.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/syscalls.c" beforeDir="false" afterPath="$PROJECT_DIR$/Src/syscalls.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Src/tim.c" beforeDir="false" afterPath="$PROJECT_DIR$/Src/tim.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Src/usart.c" beforeDir="false" afterPath="$PROJECT_DIR$/Src/usart.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +53,9 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="1zaklsmKxFuJnaTJnGPuiPays4i" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -60,10 +64,12 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="cmake.loaded.for.project" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Src" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -72,22 +78,17 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\ClionProjects\FOC_Driver\Src" />
+      <recent name="D:\ClionProjects\FOC_Driver\Inc" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\ClionProjects\FOC_Driver\Src" />
       <recent name="D:\ClionProjects\FOC_Driver\Inc" />
     </key>
   </component>
   <component name="RunManager" selected="OpenOCD Download &amp; Run.OCD FOC_Driver">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="FOC_Driver.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FOC_Driver" TARGET_NAME="FOC_Driver.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="FOC_Driver" RUN_TARGET_NAME="FOC_Driver.elf">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -124,7 +125,26 @@
       <workItem from="1636943996177" duration="972000" />
       <workItem from="1637161984477" duration="1595000" />
       <workItem from="1637196527292" duration="2642000" />
-      <workItem from="1637332253334" duration="1393000" />
+      <workItem from="1637332253334" duration="1610000" />
+      <workItem from="1637592527351" duration="2047000" />
+      <workItem from="1637620052326" duration="579000" />
+      <workItem from="1637644554894" duration="1190000" />
+      <workItem from="1637645775361" duration="2259000" />
+      <workItem from="1637676832648" duration="4665000" />
+      <workItem from="1637922050005" duration="73000" />
+      <workItem from="1637922657904" duration="1421000" />
+      <workItem from="1638073119974" duration="869000" />
+      <workItem from="1638075725298" duration="3295000" />
+      <workItem from="1638093360312" duration="2507000" />
+      <workItem from="1638105756821" duration="5397000" />
+      <workItem from="1638158172656" duration="3883000" />
+      <workItem from="1638164397278" duration="849000" />
+      <workItem from="1638177058942" duration="790000" />
+      <workItem from="1638194535863" duration="545000" />
+      <workItem from="1638279853906" duration="172000" />
+      <workItem from="1638280186770" duration="280000" />
+      <workItem from="1638285528037" duration="224000" />
+      <workItem from="1638287030350" duration="2000" />
     </task>
     <task id="LOCAL-00001" summary="add analog encoder as5600.">
       <created>1637163579249</created>
@@ -140,7 +160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637197491971</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="configuration">
+      <created>1637334883699</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1637334883699</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,13 +198,14 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add analog encoder as5600." />
     <MESSAGE value="little adjustment to encoder" />
-    <option name="LAST_COMMIT_MESSAGE" value="little adjustment to encoder" />
+    <MESSAGE value="configuration" />
+    <option name="LAST_COMMIT_MESSAGE" value="configuration" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
       <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
-        <watch expression="angle" language="ObjectiveC" />
-        <watch expression="adc_value" />
+        <watch expression="dist" language="ObjectiveC" />
+        <watch expression="dist_string" language="ObjectiveC" />
       </configuration>
     </watches-manager>
   </component>
