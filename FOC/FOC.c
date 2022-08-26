@@ -4,13 +4,35 @@
  */
 
 #include <math.h>
+#include <stdio.h>
 #include "FOC.h"
 #include "FOC_conf.h"
 #include "FOC_utils.h"
+#include "FOC_PID.h"
 #include "hardware_api.h"
+#include "AS5600.h"
+
+float zero_mechanical_angle = 0;
+float zero_electrical_angle = 0;
+
+float last_mechanical_angle = 0;
+uint32_t pre_tick;
+
 
 void FOC_init() {
+    AS5600_init();
     _init3PWM();
+    pid_set_parameters();
+    pre_tick = HAL_GetTick();
+}
+
+void FOC_electrical_angle_calibration() {
+    // FOC calibration
+    FOC_SVPWM(0, 8, 0);
+    HAL_Delay(300);
+    zero_electrical_angle = FOC_electrical_angle();
+    HAL_Delay(100);
+    FOC_SVPWM(0, 0, 0);
 }
 
 void FOC_SVPWM(float Uq, float Ud, float angle) {
@@ -87,3 +109,70 @@ void FOC_SVPWM(float Uq, float Ud, float angle) {
 
     _writeDutyCycle3PWM(Ta, Tb, Tc);
 }
+
+float FOC_get_mechanical_angle() {
+    return AS5600_ReadSensorRawData() / SENSOR_VALUE_RANGE * _2PI;
+}
+
+float FOC_electrical_angle() {
+
+    return _normalizeAngle(SENSOR_DIRECTION * POLE_PAIR * FOC_get_mechanical_angle() - zero_electrical_angle);
+}
+
+// rad/s
+float FOC_get_velocity() {
+    float ts = (float) (HAL_GetTick() - pre_tick) * 1e-3;
+    pre_tick = HAL_GetTick();
+
+    float now_mechanical_angle = FOC_get_mechanical_angle();
+    float delta_angle = now_mechanical_angle - last_mechanical_angle;
+    last_mechanical_angle = now_mechanical_angle;
+    if (fabs(delta_angle) > _PI) {
+        if (delta_angle > 0) {
+            delta_angle -= _2PI;
+        } else {
+            delta_angle += _2PI;
+        }
+    }
+
+
+    return delta_angle / ts;
+}
+
+void FOC_open_loop_voltage_control_loop(float Uq) {
+    float electrical_angle = FOC_electrical_angle();
+    FOC_SVPWM(Uq, 0, electrical_angle);
+
+}
+
+/**
+ *
+ * @param target_velocity unit: rad/s
+ */
+void FOC_velocity_control_loop(float target_velocity) {
+    float now_velocity = FOC_get_velocity();
+    float Uq = pid_get_u(&pid_velocity, target_velocity, now_velocity);
+    float electrical_angle = FOC_electrical_angle();
+    FOC_SVPWM(Uq, 0, electrical_angle);
+
+    printf("%.2f,%.2f,%.2f,%.2f\n",target_velocity, now_velocity, Uq, electrical_angle);
+}
+
+void FOC_position_control_loop(float target_angle) {
+    target_angle = _normalizeAngle(target_angle);
+    float now_angle = FOC_get_mechanical_angle();
+
+    float angle_error = target_angle - now_angle;
+    if( angle_error < -_PI) target_angle += _2PI;
+    else if(angle_error > _PI) target_angle -= _2PI;
+
+    float target_velocity = pid_get_u(&pid_position, target_angle, now_angle);
+    float now_velocity = FOC_get_velocity();
+    float Uq = pid_get_u(&pid_velocity, target_velocity, now_velocity);
+    float electrical_angle = FOC_electrical_angle();
+    FOC_SVPWM(Uq, 0, electrical_angle);
+
+    printf("%.2f,%.2f,%.2f,%.2f\n", target_angle, now_angle, target_velocity, now_velocity);
+}
+
+

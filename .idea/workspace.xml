@@ -14,7 +14,35 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68eb4f5c-ce99-4dbb-a3e2-87d6d4f7aab3" name="变更" comment="" />
+    <list default="true" id="68eb4f5c-ce99-4dbb-a3e2-87d6d4f7aab3" name="变更" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BSP/bsp_button.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BSP/bsp_button.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FOC/FOC_PID.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FOC/FOC_PID.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FOC/sensor/AS5600.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FOC/sensor/AS5600.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FOC/sensor/current_sense.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FOC/sensor/current_sense.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists_template.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists_template.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/main.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/main.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/stm32f1xx_it.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/stm32f1xx_it.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/adc.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/adc.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/gpio.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/gpio.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/i2c.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/i2c.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/retarget.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/retarget.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/stm32f1xx_it.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32f1xx_it.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FOC/FOC.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FOC/FOC.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FOC/FOC_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC_conf.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FOC/FOC_utils.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC_utils.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FOC_Driver.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/FOC_Driver.ioc" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,6 +52,9 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -33,6 +64,9 @@
     <option name="minorVersion" value="3.4" />
   </component>
   <component name="ProjectId" id="2Dk03gfbIfVdXpt2z0wwWYPlLb9" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -41,19 +75,23 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="cmake.loaded.for.project" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/FOC/sensor" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="CMakeSettings" />
+    <property name="structure.view.defaults.are.configured" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\FOC\Software\FOC_Driver\FOC\sensor" />
+      <recent name="D:\FOC\Software\FOC_Driver\BSP" />
       <recent name="D:\FOC\Software\FOC_Driver" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -61,11 +99,6 @@
     </key>
   </component>
   <component name="RunManager" selected="OpenOCD 下载并运行.OCD FOC_Driver">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="FOC_Driver.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FOC_Driver" TARGET_NAME="FOC_Driver.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="FOC_Driver" RUN_TARGET_NAME="FOC_Driver.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -92,11 +125,25 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1661227579377</updated>
-      <workItem from="1661227586696" duration="2018000" />
+      <workItem from="1661227586696" duration="2355000" />
+      <workItem from="1661236422517" duration="18086000" />
+      <workItem from="1661391412700" duration="18775000" />
+      <workItem from="1661495222655" duration="1000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

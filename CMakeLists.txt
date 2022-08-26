@@ -49,11 +49,21 @@ else ()
     add_compile_options(-Og -g)
 endif ()
 
-include_directories(Core/Inc Drivers/STM32F1xx_HAL_Driver/Inc Drivers/STM32F1xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32F1xx/Include Drivers/CMSIS/Include FOC FOC/hardware_specific st7735)
+include_directories(Core/Inc Drivers/STM32F1xx_HAL_Driver/Inc Drivers/STM32F1xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32F1xx/Include Drivers/CMSIS/Include
+                    FOC
+                    FOC/hardware_specific
+                    FOC/sensor
+                    st7735
+                    BSP)
 
 add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB)
 
-file(GLOB_RECURSE SOURCES "Core/*.*" "Drivers/*.*" "FOC/*.*" "FOC/hardware_specific/*.*" "st7735/*.*")
+file(GLOB_RECURSE SOURCES "Core/*.*" "Drivers/*.*"
+    "FOC/*.*"
+    "FOC/hardware_specific/*.*"
+    "FOC/sensor/*.*"
+    "st7735/*.*"
+    "BSP/*.*")
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F103CBTX_FLASH.ld)
 
