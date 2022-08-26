@@ -5,8 +5,8 @@ PID_Datatype pid_velocity;
 PID_Datatype pid_position;
 
 void pid_set_parameters() {
-    pid_velocity.Kp = 0.1;
-    pid_velocity.Ki = 0.01; // 0.01
+    pid_velocity.Kp = 0.08;
+    pid_velocity.Ki = 0.03; // 0.01
     pid_velocity.Kd = 0;
     pid_velocity.integral = 0;
     pid_velocity.last_error = 0;
@@ -21,10 +21,10 @@ void pid_set_parameters() {
     pid_position.Kd = 0;
     pid_position.integral = 0;
     pid_position.last_error = 0;
-    pid_position.max_integral = 200.0;
-    pid_position.min_integral = -200.0;
-    pid_position.max_u = 100.0;
-    pid_position.min_u = -100.0;
+    pid_position.max_integral = 0.0;
+    pid_position.min_integral = -0.0;
+    pid_position.max_u = 20.0;
+    pid_position.min_u = -20.0;
     pid_position.dead_zone = 0;
 
 }

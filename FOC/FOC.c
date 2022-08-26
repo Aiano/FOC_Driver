@@ -122,6 +122,7 @@ float FOC_electrical_angle() {
 // rad/s
 float FOC_get_velocity() {
     float ts = (float) (HAL_GetTick() - pre_tick) * 1e-3;
+    if(ts < 1e-3) ts = 1e-3;
     pre_tick = HAL_GetTick();
 
     float now_mechanical_angle = FOC_get_mechanical_angle();
@@ -136,6 +137,7 @@ float FOC_get_velocity() {
     }
 
 
+//    return delta_angle;
     return delta_angle / ts;
 }
 
@@ -150,12 +152,13 @@ void FOC_open_loop_voltage_control_loop(float Uq) {
  * @param target_velocity unit: rad/s
  */
 void FOC_velocity_control_loop(float target_velocity) {
-    float now_velocity = FOC_get_velocity();
+    static float now_velocity;
+    now_velocity = FOC_get_velocity();
     float Uq = pid_get_u(&pid_velocity, target_velocity, now_velocity);
     float electrical_angle = FOC_electrical_angle();
     FOC_SVPWM(Uq, 0, electrical_angle);
 
-    printf("%.2f,%.2f,%.2f,%.2f\n",target_velocity, now_velocity, Uq, electrical_angle);
+//    printf("%.2f,%.2f\n", now_velocity,target_velocity);
 }
 
 void FOC_position_control_loop(float target_angle) {
@@ -172,7 +175,7 @@ void FOC_position_control_loop(float target_angle) {
     float electrical_angle = FOC_electrical_angle();
     FOC_SVPWM(Uq, 0, electrical_angle);
 
-    printf("%.2f,%.2f,%.2f,%.2f\n", target_angle, now_angle, target_velocity, now_velocity);
+    //printf("%.2f,%.2f,%.2f,%.2f\n", target_angle, now_angle, target_velocity, now_velocity);
 }
 
 

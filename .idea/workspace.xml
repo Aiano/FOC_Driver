@@ -14,33 +14,50 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68eb4f5c-ce99-4dbb-a3e2-87d6d4f7aab3" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BSP/bsp_button.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BSP/bsp_button.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FOC/FOC_PID.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FOC/FOC_PID.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FOC/sensor/AS5600.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FOC/sensor/AS5600.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FOC/sensor/current_sense.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FOC/sensor/current_sense.h" afterDir="false" />
+    <list default="true" id="68eb4f5c-ce99-4dbb-a3e2-87d6d4f7aab3" name="变更" comment="add velocity and position control">
+      <change afterPath="$PROJECT_DIR$/Core/Inc/FreeRTOSConfig.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/freertos.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/stm32f1xx_hal_timebase_tim.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/croutine.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/include/StackMacros.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/include/croutine.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/include/list.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/include/message_buffer.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/include/mpu_prototypes.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/include/portable.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/include/queue.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/include/stack_macros.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/include/stream_buffer.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/include/task.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/include/timers.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/list.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/queue.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/tasks.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Middlewares/Third_Party/FreeRTOS/Source/timers.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.cproject" beforeDir="false" afterPath="$PROJECT_DIR$/.cproject" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mxproject" beforeDir="false" afterPath="$PROJECT_DIR$/.mxproject" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists_template.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists_template.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/main.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/main.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/stm32f1xx_it.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/stm32f1xx_it.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/adc.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/adc.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/gpio.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/gpio.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/i2c.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/i2c.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/retarget.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/retarget.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/stm32f1xx_hal_msp.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32f1xx_hal_msp.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/stm32f1xx_it.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/stm32f1xx_it.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOC/FOC.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC/FOC.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC/FOC_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC_conf.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC/FOC_utils.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC_utils.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FOC/FOC_PID.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC_PID.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOC_Driver.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/FOC_Driver.ioc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,6 +71,14 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -104,6 +129,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="OCD FOC_Driver" type="com.jetbrains.cidr.embedded.openocd.conf.type" factoryName="com.jetbrains.cidr.embedded.openocd.conf.factory" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FOC_Driver" TARGET_NAME="FOC_Driver.elf" CONFIG_NAME="Debug" version="1" RUN_TARGET_PROJECT_NAME="FOC_Driver" RUN_TARGET_NAME="FOC_Driver.elf">
       <openocd version="1" gdb-port="3333" telnet-port="4444" board-config="D:\EE\CLion+Stm32\config\daplink_config.cfg" reset-type="INIT" download-type="UPDATED_ONLY">
         <debugger kind="GDB" isBundled="true" />
@@ -128,8 +158,16 @@
       <workItem from="1661227586696" duration="2355000" />
       <workItem from="1661236422517" duration="18086000" />
       <workItem from="1661391412700" duration="18775000" />
-      <workItem from="1661495222655" duration="1000" />
+      <workItem from="1661495222655" duration="6229000" />
     </task>
+    <task id="LOCAL-00001" summary="add velocity and position control">
+      <created>1661495255612</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1661495255613</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,5 +183,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add velocity and position control" />
+    <option name="LAST_COMMIT_MESSAGE" value="add velocity and position control" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
+        <watch expression="now_velocity" language="ObjectiveC" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
