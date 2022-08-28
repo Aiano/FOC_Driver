@@ -12,6 +12,13 @@
 #include "hardware_api.h"
 #include "AS5600.h"
 
+const char foc_control_mode_name[4][20] = {
+        "OPENLOOP",
+        "TORQUE",
+        "SPEED",
+        "POSITION"
+};
+
 float zero_mechanical_angle = 0;
 float zero_electrical_angle = 0;
 

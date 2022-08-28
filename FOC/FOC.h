@@ -7,6 +7,14 @@
 #ifndef FOC_DRIVER_FOC_H
 #define FOC_DRIVER_FOC_H
 
+typedef enum{
+    OPEN_LOOP_POSITION_CONTROL = 0,
+    TORQUE_CONTROL,
+    SPEED_CONTROL,
+    POSITION_CONTROL
+} FOC_CONTROL_MODE;
+
+extern const char foc_control_mode_name[4][20];
 
 void FOC_init();
 void FOC_electrical_angle_calibration();

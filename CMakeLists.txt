@@ -53,16 +53,15 @@ include_directories(Core/Inc Drivers/STM32F1xx_HAL_Driver/Inc Drivers/STM32F1xx_
                     FOC
                     FOC/hardware_specific
                     FOC/sensor
-                    st7735
+                    GUI
+                    GUI/st7735
                     BSP)
 
 add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB)
 
 file(GLOB_RECURSE SOURCES "Core/*.*" "Middlewares/*.*" "Drivers/*.*"
     "FOC/*.*"
-    "FOC/hardware_specific/*.*"
-    "FOC/sensor/*.*"
-    "st7735/*.*"
+    "GUI/*.*"
     "BSP/*.*")
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32F103CBTX_FLASH.ld)

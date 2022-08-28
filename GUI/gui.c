@@ -1,0 +1,115 @@
+#include "gui.h"
+#include "st7735.h"
+#include "image.h"
+
+void gui_draw_line(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color) {
+    if (x1 == x2) { // slope == infinite
+        if (y2 < y1) { // Make sure that y1 <= y2
+            uint8_t temp = y2;
+            y2 = y1;
+            y1 = temp;
+        }
+        for (uint8_t y0 = y1; y0 <= y2; y0++) {
+            ST7735_DrawPixel(x1, y0, color);
+        }
+        return;
+    }
+
+    if (x2 < x1) { // Make sure that x1 <= x2
+        // Swap two variable in-place
+        uint8_t temp = x2;
+        x2 = x1;
+        x1 = temp;
+
+        temp = y2;
+        y2 = y1;
+        y1 = temp;
+    }
+
+
+    for (uint8_t x0 = x1; x0 <= x2; x0++) { // iterate each pixel of the line
+        uint8_t y0 = (y2 - y1) * (x0 - x1) / (x2 - x1) + y1;
+        ST7735_DrawPixel(x0, y0, color);
+    }
+    return;
+}
+
+void gui_draw_rectangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t fill, uint16_t color) {
+    // Clock wise from left top
+    if (fill) {
+        for (int i = y1; i <= y2; i++) {
+            for (int j = x1; j <= x2; j++) {
+                ST7735_DrawPixel(j, i, color);
+            }
+        }
+        return;
+    }
+
+    gui_draw_line(x1, y1, x2, y1, color); // Line1
+    gui_draw_line(x2, y1, x2, y2, color); // Line2
+    gui_draw_line(x2, y2, x1, y2, color); // Line3
+    gui_draw_line(x1, y2, x1, y1, color); // Line4
+    return;
+}
+
+void gui_draw_triangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t x3, uint16_t y3, uint16_t color) {
+    // Clock wise from left top
+
+    gui_draw_line(x1, y1, x2, y2, color); // Line1
+    gui_draw_line(x2, y2, x3, y3, color); // Line2
+    gui_draw_line(x3, y3, x1, y1, color); // Line3
+}
+
+void gui_draw_init() {
+    static const int delay_time = 200;
+
+    ST7735_FillScreen(ST7735_WHITE);
+    ST7735_DrawImage(0, 0, ST7735_HEIGHT, ST7735_HEIGHT, (uint16_t *) head_portrait_80x80);
+
+    ST7735_WriteString(80, 20, "FOC", Font_11x18, ST7735_BLACK, ST7735_WHITE);
+    ST7735_WriteString(80, 38, "Driver", Font_11x18, ST7735_BLACK, ST7735_WHITE);
+    gui_draw_line(80, 18, 150, 18, ST7735_BLACK);
+    gui_draw_line(80, 68, 150, 68, ST7735_BLACK);
+
+    ST7735_WriteString(80, 56, "Init", Font_7x10, ST7735_BLACK, ST7735_WHITE);
+    HAL_Delay(delay_time);
+    ST7735_WriteString(80, 56, "Init.", Font_7x10, ST7735_BLACK, ST7735_WHITE);
+    HAL_Delay(delay_time);
+    ST7735_WriteString(80, 56, "Init..", Font_7x10, ST7735_BLACK, ST7735_WHITE);
+    HAL_Delay(delay_time);
+    ST7735_WriteString(80, 56, "Init...", Font_7x10, ST7735_BLACK, ST7735_WHITE);
+    HAL_Delay(delay_time);
+}
+
+void gui_draw_mode_selection(FOC_CONTROL_MODE mode) {
+    static const int y = 65, width = 23, height = 12;
+    ST7735_FillScreenFast(ST7735_WHITE);
+
+    gui_draw_line(0, y - 3, 180, y - 3, ST7735_BLACK);
+    gui_draw_button(10, y, width, height, "lef", ST7735_BLACK, ST7735_WHITE);
+    gui_draw_button(50, y, width, height, "cfm", ST7735_BLACK, ST7735_WHITE);
+    gui_draw_button(90, y, width, height, "cel", ST7735_BLACK, ST7735_WHITE);
+    gui_draw_button(130, y, width, height, "rig", ST7735_BLACK, ST7735_WHITE);
+
+    ST7735_WriteString(0,0,"Mode Select", Font_11x18, ST7735_BLACK, ST7735_WHITE);
+    gui_draw_line(0, 20, 180, 20,ST7735_BLACK);
+
+    ST7735_WriteString(0, 30, foc_control_mode_name[mode],Font_16x26, ST7735_BLUE, ST7735_WHITE);
+}
+
+void
+gui_draw_button(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const char *string, uint16_t color, uint16_t bgcolor) {
+
+    gui_draw_line(x, y, x + w, y, color);
+    gui_draw_line(x + w, y, x + w, y + h, color);
+    gui_draw_line(x + w, y + h, x, y + h, color);
+    gui_draw_line(x, y + h, x, y, color);
+    ST7735_WriteString(x + 1, y + 1, string, Font_7x10, color, bgcolor);
+}
+
+void gui_draw_parameter(uint16_t x, uint16_t y, const char *item, float value) {
+    char data[20];
+
+}
+
+

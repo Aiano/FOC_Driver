@@ -1,3 +1,5 @@
+#include "image.h"
+
 #ifdef ST7735_IS_128X128
 
 const uint16_t test_img_128x128[][128] = {

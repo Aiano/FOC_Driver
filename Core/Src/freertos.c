@@ -31,12 +31,8 @@
 
 #include "FOC.h"
 #include "FOC_utils.h"
-//#include "AS5600.h"
-//#include "current_sense.h"
 
-//#include "st7735.h"
-//#include "fonts.h"
-//#include "image.h"
+#include "gui.h"
 
 #include "bsp_button.h"
 /* USER CODE END Includes */
@@ -66,16 +62,18 @@ osThreadId defaultTaskHandle;
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 void VelocityControlTask(void *argument);
+
 void PositionControlTask(void *argument);
 
 /* USER CODE END FunctionPrototypes */
 
-void StartDefaultTask(void const * argument);
+void StartDefaultTask(void const *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /* GetIdleTaskMemory prototype (linked to static allocation support) */
-void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize );
+void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer,
+                                   uint32_t *pulIdleTaskStackSize);
 
 /* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
 static StaticTask_t xIdleTaskTCBBuffer;
@@ -96,38 +94,38 @@ void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer, StackTyp
   * @retval None
   */
 void MX_FREERTOS_Init(void) {
-  /* USER CODE BEGIN Init */
+    /* USER CODE BEGIN Init */
 
     xTaskCreate(VelocityControlTask, "VelCtrl", 512, NULL, 6, velocityControlTaskHandle);
     vTaskSuspend(velocityControlTaskHandle);
 
     xTaskCreate(PositionControlTask, "PosCtrl", 512, NULL, 6, velocityControlTaskHandle);
-  /* USER CODE END Init */
+    /* USER CODE END Init */
 
-  /* USER CODE BEGIN RTOS_MUTEX */
+    /* USER CODE BEGIN RTOS_MUTEX */
     /* add mutexes, ... */
-  /* USER CODE END RTOS_MUTEX */
+    /* USER CODE END RTOS_MUTEX */
 
-  /* USER CODE BEGIN RTOS_SEMAPHORES */
+    /* USER CODE BEGIN RTOS_SEMAPHORES */
     /* add semaphores, ... */
-  /* USER CODE END RTOS_SEMAPHORES */
+    /* USER CODE END RTOS_SEMAPHORES */
 
-  /* USER CODE BEGIN RTOS_TIMERS */
+    /* USER CODE BEGIN RTOS_TIMERS */
     /* start timers, add new ones, ... */
-  /* USER CODE END RTOS_TIMERS */
+    /* USER CODE END RTOS_TIMERS */
 
-  /* USER CODE BEGIN RTOS_QUEUES */
+    /* USER CODE BEGIN RTOS_QUEUES */
     /* add queues, ... */
-  /* USER CODE END RTOS_QUEUES */
+    /* USER CODE END RTOS_QUEUES */
 
-  /* Create the thread(s) */
-  /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityIdle, 0, 128);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+    /* Create the thread(s) */
+    /* definition and creation of defaultTask */
+    osThreadDef(defaultTask, StartDefaultTask, osPriorityIdle, 0, 128);
+    defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
-  /* USER CODE BEGIN RTOS_THREADS */
+    /* USER CODE BEGIN RTOS_THREADS */
     /* add threads, ... */
-  /* USER CODE END RTOS_THREADS */
+    /* USER CODE END RTOS_THREADS */
 
 }
 
@@ -138,14 +136,13 @@ void MX_FREERTOS_Init(void) {
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void const * argument)
-{
-  /* USER CODE BEGIN StartDefaultTask */
+void StartDefaultTask(void const *argument) {
+    /* USER CODE BEGIN StartDefaultTask */
     /* Infinite loop */
     for (;;) {
         osDelay(1);
     }
-  /* USER CODE END StartDefaultTask */
+    /* USER CODE END StartDefaultTask */
 }
 
 /* Private application code --------------------------------------------------*/
@@ -155,10 +152,10 @@ void VelocityControlTask(void *argument) {
     while (1) {
         if (button_left_press_pending_flag) {
             velocity -= 5;
-            HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+            HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
         } else if (button_right_press_pending_flag) {
             velocity += 5;
-            HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+            HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
         }
         button_reset_all_flags();
 
@@ -168,17 +165,25 @@ void VelocityControlTask(void *argument) {
     }
 }
 
-void PositionControlTask(void *argument){
-    float angle = 0;
+void PositionControlTask(void *argument) {
+    float angle = 0.35;
+    FOC_CONTROL_MODE mode = OPEN_LOOP_POSITION_CONTROL;
     while (1) {
         if (button_left_press_pending_flag) {
             angle -= _PI_2;
-            HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+            HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+            if(mode) mode--;
+            else mode = 3;
+            gui_draw_mode_selection(mode);
         } else if (button_right_press_pending_flag) {
             angle += _PI_2;
-            HAL_GPIO_TogglePin(LED_GPIO_Port,LED_Pin);
+            HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+            mode++;
+            if(mode > 3) mode = 0;
+            gui_draw_mode_selection(mode);
         }
         button_reset_all_flags();
+
 
         portENTER_CRITICAL();
         FOC_position_control_loop(angle);
