@@ -11,15 +11,11 @@
 #include "FOC_PID.h"
 #include "hardware_api.h"
 #include "AS5600.h"
+#include "current_sense.h"
+#include "usart.h"
 
-const char foc_control_mode_name[4][20] = {
-        "OPENLOOP",
-        "TORQUE",
-        "SPEED",
-        "POSITION"
-};
 
-float zero_mechanical_angle = 0;
+float zero_mechanical_angle = 0.36;
 float zero_electrical_angle = 0;
 
 float last_mechanical_angle = 0;
@@ -129,7 +125,7 @@ float FOC_electrical_angle() {
 // rad/s
 float FOC_get_velocity() {
     float ts = (float) (HAL_GetTick() - pre_tick) * 1e-3;
-    if(ts < 1e-3) ts = 1e-3;
+    if (ts < 1e-3) ts = 1e-3;
     pre_tick = HAL_GetTick();
 
     float now_mechanical_angle = FOC_get_mechanical_angle();
@@ -165,16 +161,18 @@ void FOC_velocity_control_loop(float target_velocity) {
     float electrical_angle = FOC_electrical_angle();
     FOC_SVPWM(Uq, 0, electrical_angle);
 
-//    printf("%.2f,%.2f\n", now_velocity,target_velocity);
+//    cs_get_value();
+//    printf("%d,%d,%d\n", cs_value[0], cs_value[1], cs_value[2]);
 }
 
 void FOC_position_control_loop(float target_angle) {
     target_angle = _normalizeAngle(target_angle);
-    float now_angle = FOC_get_mechanical_angle();
+    float now_angle = _normalizeAngle(FOC_get_mechanical_angle() - zero_mechanical_angle);
+//    float now_angle = FOC_get_mechanical_angle();
 
     float angle_error = target_angle - now_angle;
-    if( angle_error < -_PI) target_angle += _2PI;
-    else if(angle_error > _PI) target_angle -= _2PI;
+    if (angle_error < -_PI) target_angle += _2PI;
+    else if (angle_error > _PI) target_angle -= _2PI;
 
     float target_velocity = pid_get_u(&pid_position, target_angle, now_angle);
     float now_velocity = FOC_get_velocity();
@@ -185,4 +183,35 @@ void FOC_position_control_loop(float target_angle) {
     //printf("%.2f,%.2f,%.2f,%.2f\n", target_angle, now_angle, target_velocity, now_velocity);
 }
 
+void FOC_spring_loop(float target_angle, PID_Datatype *pid) {
+    target_angle = _normalizeAngle(target_angle);
+    float now_angle = _normalizeAngle(FOC_get_mechanical_angle() - zero_mechanical_angle);
+
+    float angle_error = target_angle - now_angle;
+    if (angle_error < -_PI) target_angle += _2PI;
+    else if (angle_error > _PI) target_angle -= _2PI;
+
+    float Uq = pid_get_u(pid, target_angle, now_angle);
+    float electrical_angle = FOC_electrical_angle();
+    FOC_SVPWM(Uq, 0, electrical_angle);
+}
+
+void FOC_knob_loop(uint8_t sector_num) {
+    float now_angle = _normalizeAngle(FOC_get_mechanical_angle() - zero_mechanical_angle);
+    uint8_t now_sector = (uint8_t) floor(now_angle * sector_num / _2PI);
+    float target_angle = now_sector * _2PI / sector_num + _PI / sector_num;
+
+    float angle_error = target_angle - now_angle;
+    if (angle_error < -_PI) target_angle += _2PI;
+    else if (angle_error > _PI) target_angle -= _2PI;
+
+    float Uq = pid_get_u(&pid_knob, target_angle, now_angle);
+
+    float electrical_angle = FOC_electrical_angle();
+    FOC_SVPWM(Uq, 0, electrical_angle);
+
+    char data = now_sector + '0';
+
+    HAL_UART_Transmit(&huart1, &data, 1, 0xff);
+}
 

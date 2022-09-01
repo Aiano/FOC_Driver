@@ -1,6 +1,24 @@
+#include <string.h>
+#include <stdlib.h>
 #include "gui.h"
 #include "st7735.h"
 #include "image.h"
+#include "FOC_utils.h"
+
+
+const char foc_mode_name[FOC_CONTROL_MODE_NUM][20] = {
+        "OPEN POS",
+        "OPEN VEL",
+        "TORQUE",
+        "VELOCITY",
+        "POSITION",
+        "SPRING",
+        "SPRING DMP",
+        "DAMP",
+        "KNOB",
+        "0 RESIST"
+};
+
 
 void gui_draw_line(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint16_t color) {
     if (x1 == x2) { // slope == infinite
@@ -82,19 +100,47 @@ void gui_draw_init() {
 }
 
 void gui_draw_mode_selection(FOC_CONTROL_MODE mode) {
+
     static const int y = 65, width = 23, height = 12;
     ST7735_FillScreenFast(ST7735_WHITE);
 
     gui_draw_line(0, y - 3, 180, y - 3, ST7735_BLACK);
+    gui_draw_line(0, 20, 180, 20, ST7735_BLACK);
+
     gui_draw_button(10, y, width, height, "lef", ST7735_BLACK, ST7735_WHITE);
     gui_draw_button(50, y, width, height, "cfm", ST7735_BLACK, ST7735_WHITE);
-    gui_draw_button(90, y, width, height, "cel", ST7735_BLACK, ST7735_WHITE);
+//    gui_draw_button(90, y, width, height, "cel", ST7735_BLACK, ST7735_WHITE);
     gui_draw_button(130, y, width, height, "rig", ST7735_BLACK, ST7735_WHITE);
 
-    ST7735_WriteString(0,0,"Mode Select", Font_11x18, ST7735_BLACK, ST7735_WHITE);
-    gui_draw_line(0, 20, 180, 20,ST7735_BLACK);
+    ST7735_WriteString(0, 0, "Mode Select", Font_11x18, ST7735_BLACK, ST7735_WHITE);
 
-    ST7735_WriteString(0, 30, foc_control_mode_name[mode],Font_16x26, ST7735_BLUE, ST7735_WHITE);
+
+    ST7735_WriteString(0, 30, foc_mode_name[mode], Font_16x26, ST7735_BLUE, ST7735_WHITE);
+
+    ST7735_FillRectangle(0, 57, ST7735_WIDTH * (mode + 1) / FOC_CONTROL_MODE_NUM, 3, ST7735_RED);
+
+//    gui_draw_parameter(0, 57, "A", 10);
+}
+
+void gui_draw_position_mode(float angle, uint8_t refresh) {
+    static const int y = 65, width = 23, height = 12;
+    if (refresh) {
+        ST7735_FillScreenFast(ST7735_WHITE);
+
+        gui_draw_line(0, y - 3, 180, y - 3, ST7735_BLACK);
+        gui_draw_line(0, 20, 180, 20, ST7735_BLACK);
+
+        gui_draw_button(10, y, width, height, "lef", ST7735_BLACK, ST7735_WHITE);
+//    gui_draw_button(50, y, width, height, "cfm", ST7735_BLACK, ST7735_WHITE);
+        gui_draw_button(90, y, width, height, "cel", ST7735_BLACK, ST7735_WHITE);
+        gui_draw_button(130, y, width, height, "rig", ST7735_BLACK, ST7735_WHITE);
+
+        ST7735_WriteString(0, 0, "Position Mode", Font_11x18, ST7735_BLUE, ST7735_WHITE);
+    } else {
+        ST7735_FillRectangle(0, 21, 180, 40, ST7735_WHITE);
+    }
+    // show parameters
+    gui_draw_parameter(0, 22, "Angle", angle * _RADIAN_TO_DEGREE);
 }
 
 void
@@ -107,9 +153,15 @@ gui_draw_button(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const char *stri
     ST7735_WriteString(x + 1, y + 1, string, Font_7x10, color, bgcolor);
 }
 
-void gui_draw_parameter(uint16_t x, uint16_t y, const char *item, float value) {
-    char data[20];
-
+void gui_draw_parameter(uint16_t x, uint16_t y, const char *item, int16_t value) {
+    char data[20], num[10];
+    strcpy(data, item);
+    strcat(data, ":");
+    itoa(value, num, 10);
+    strcat(data, num);
+    ST7735_WriteString(x, y, data, Font_7x10, ST7735_BLACK, ST7735_WHITE);
 }
+
+
 
 

@@ -20,6 +20,11 @@ typedef struct {
 
 extern PID_Datatype pid_velocity;
 extern PID_Datatype pid_position;
+extern PID_Datatype pid_spring;
+extern PID_Datatype pid_spring_with_damp;
+extern PID_Datatype pid_damp;
+extern PID_Datatype pid_zero_resistance;
+extern PID_Datatype pid_knob;
 
 void pid_set_parameters();
 float pid_get_u(PID_Datatype *pid, float target, float real);

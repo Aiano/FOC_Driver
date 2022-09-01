@@ -31,6 +31,7 @@
 
 #include "FOC.h"
 #include "FOC_utils.h"
+#include "current_sense.h"
 
 #include "gui.h"
 
@@ -54,26 +55,50 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN Variables */
+static TaskHandle_t taskSelectTaskHandle = NULL;
+static TaskHandle_t openLoopPosControlTaskHandle = NULL;
+static TaskHandle_t openLoopVelControlTaskHandle = NULL;
+static TaskHandle_t torqueControlTaskHandle = NULL;
 static TaskHandle_t velocityControlTaskHandle = NULL;
 static TaskHandle_t positionControlTaskHandle = NULL;
+static TaskHandle_t springTaskHandle = NULL;
+static TaskHandle_t knobTaskHandle = NULL;
+static TaskHandle_t zeroResistanceTaskHandle = NULL;
+
+PID_Datatype *spring_pid;
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
+void SuspendToRunOtherTask(TaskHandle_t other_task);
+
+void TaskSelectTask(void *argument);
+
+void OpenLoopPosControlTask(void *argument);
+
+void OpenLoopVelControlTask(void *argument);
+
+void TorqueControlTask(void *argument);
+
 void VelocityControlTask(void *argument);
 
 void PositionControlTask(void *argument);
 
+void SpringTask(void *argument);
+
+void DampTask(void *argument);
+
+void KnobTask(void *argument);
+
 /* USER CODE END FunctionPrototypes */
 
-void StartDefaultTask(void const *argument);
+void StartDefaultTask(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /* GetIdleTaskMemory prototype (linked to static allocation support) */
-void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer,
-                                   uint32_t *pulIdleTaskStackSize);
+void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize );
 
 /* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
 static StaticTask_t xIdleTaskTCBBuffer;
@@ -94,38 +119,56 @@ void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer, StackTyp
   * @retval None
   */
 void MX_FREERTOS_Init(void) {
-    /* USER CODE BEGIN Init */
+  /* USER CODE BEGIN Init */
+    xTaskCreate(OpenLoopPosControlTask, "OpenPos", 64, NULL, 6, &openLoopPosControlTaskHandle);
+    vTaskSuspend(openLoopPosControlTaskHandle);
 
-    xTaskCreate(VelocityControlTask, "VelCtrl", 512, NULL, 6, velocityControlTaskHandle);
+    xTaskCreate(OpenLoopVelControlTask, "OpenVel", 64, NULL, 6, &openLoopVelControlTaskHandle);
+    vTaskSuspend(openLoopVelControlTaskHandle);
+
+    xTaskCreate(TorqueControlTask, "TorCtrl", 64, NULL, 6, &torqueControlTaskHandle);
+    vTaskSuspend(torqueControlTaskHandle);
+
+    xTaskCreate(VelocityControlTask, "VelCtrl", 64, NULL, 6, &velocityControlTaskHandle);
     vTaskSuspend(velocityControlTaskHandle);
 
-    xTaskCreate(PositionControlTask, "PosCtrl", 512, NULL, 6, velocityControlTaskHandle);
-    /* USER CODE END Init */
+    xTaskCreate(PositionControlTask, "PosCtrl", 64, NULL, 6, &positionControlTaskHandle);
+    vTaskSuspend(positionControlTaskHandle);
 
-    /* USER CODE BEGIN RTOS_MUTEX */
+    xTaskCreate(SpringTask, "Spring", 64, NULL, 6, &springTaskHandle);
+    vTaskSuspend(springTaskHandle);
+
+    xTaskCreate(KnobTask, "Knob", 64, NULL, 6, &knobTaskHandle);
+    vTaskSuspend(knobTaskHandle);
+
+    xTaskCreate(TaskSelectTask, "Select", 64, NULL, 6, &taskSelectTaskHandle);
+
+  /* USER CODE END Init */
+
+  /* USER CODE BEGIN RTOS_MUTEX */
     /* add mutexes, ... */
-    /* USER CODE END RTOS_MUTEX */
+  /* USER CODE END RTOS_MUTEX */
 
-    /* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
     /* add semaphores, ... */
-    /* USER CODE END RTOS_SEMAPHORES */
+  /* USER CODE END RTOS_SEMAPHORES */
 
-    /* USER CODE BEGIN RTOS_TIMERS */
+  /* USER CODE BEGIN RTOS_TIMERS */
     /* start timers, add new ones, ... */
-    /* USER CODE END RTOS_TIMERS */
+  /* USER CODE END RTOS_TIMERS */
 
-    /* USER CODE BEGIN RTOS_QUEUES */
+  /* USER CODE BEGIN RTOS_QUEUES */
     /* add queues, ... */
-    /* USER CODE END RTOS_QUEUES */
+  /* USER CODE END RTOS_QUEUES */
 
-    /* Create the thread(s) */
-    /* definition and creation of defaultTask */
-    osThreadDef(defaultTask, StartDefaultTask, osPriorityIdle, 0, 128);
-    defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  /* Create the thread(s) */
+  /* definition and creation of defaultTask */
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityIdle, 0, 64);
+  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
-    /* USER CODE BEGIN RTOS_THREADS */
+  /* USER CODE BEGIN RTOS_THREADS */
     /* add threads, ... */
-    /* USER CODE END RTOS_THREADS */
+  /* USER CODE END RTOS_THREADS */
 
 }
 
@@ -136,59 +179,258 @@ void MX_FREERTOS_Init(void) {
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void const *argument) {
-    /* USER CODE BEGIN StartDefaultTask */
+void StartDefaultTask(void const * argument)
+{
+  /* USER CODE BEGIN StartDefaultTask */
     /* Infinite loop */
     for (;;) {
         osDelay(1);
     }
-    /* USER CODE END StartDefaultTask */
+  /* USER CODE END StartDefaultTask */
 }
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
+void SuspendToRunOtherTask(TaskHandle_t other_task) {
+    if (other_task == taskSelectTaskHandle) {
+        HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
+    } else {
+        HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
+    }
+    button_reset_all_flags();
+    FOC_SVPWM(0, 0, 0);
+    vTaskResume(other_task);
+    vTaskSuspend(NULL);
+}
+
+void TaskSelectTask(void *argument) {
+    FOC_CONTROL_MODE mode = OPEN_LOOP_POSITION_CONTROL;
+    portENTER_CRITICAL();
+    gui_draw_mode_selection(mode);
+    portEXIT_CRITICAL();
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+
+    HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
+    while (1) {
+        if (button_press_pending_flag) {
+            if (button_left_press_pending_flag) {
+                if (mode) mode--;
+                else mode = FOC_CONTROL_MODE_NUM - 1;
+                gui_draw_mode_selection(mode);
+
+            } else if (button_right_press_pending_flag) {
+                mode++;
+                if (mode > FOC_CONTROL_MODE_NUM - 1) mode = 0;
+                gui_draw_mode_selection(mode);
+
+            } else if (button_confirm_press_pending_flag) {
+                switch (mode) {
+                    case OPEN_LOOP_POSITION_CONTROL:
+                        SuspendToRunOtherTask(openLoopPosControlTaskHandle);
+                        break;
+                    case OPEN_LOOP_SPEED_CONTROL:
+                        SuspendToRunOtherTask(openLoopVelControlTaskHandle);
+                        break;
+                    case TORQUE_CONTROL:
+                        SuspendToRunOtherTask(torqueControlTaskHandle);
+                        break;
+                    case SPEED_CONTROL:
+                        SuspendToRunOtherTask(velocityControlTaskHandle);
+                        break;
+                    case POSITION_CONTROL:;
+                        SuspendToRunOtherTask(positionControlTaskHandle);
+                        break;
+                    case SPRING:
+                        spring_pid = &pid_spring;
+                        SuspendToRunOtherTask(springTaskHandle);
+                        break;
+                    case SPRING_WITH_DAMP:
+                        spring_pid = &pid_spring_with_damp;
+                        SuspendToRunOtherTask(springTaskHandle);
+                        break;
+                    case DAMP:
+                        spring_pid = &pid_damp;
+                        SuspendToRunOtherTask(springTaskHandle);
+                        break;
+                    case KNOB:
+                        SuspendToRunOtherTask(knobTaskHandle);
+                        break;
+                    case ZERO_RESISTANCE:
+                        spring_pid = &pid_zero_resistance;
+                        SuspendToRunOtherTask(springTaskHandle);
+                        break;
+                }
+                gui_draw_mode_selection(mode);
+                continue;
+            }
+
+            button_reset_all_flags();
+        }
+
+
+        vTaskDelayUntil(&xLastWakeTime,
+                        10);
+    }
+}
+
+void OpenLoopPosControlTask(void *argument) {
+    float angle = 0, Ud = 1;
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+
+    while (1) {
+        if (button_press_pending_flag) {
+            if (button_left_press_pending_flag) {
+                angle -= _PI_2;
+            } else if (button_right_press_pending_flag) {
+                angle += _PI_2;
+            } else if (button_cancel_press_pending_flag) {
+                SuspendToRunOtherTask(taskSelectTaskHandle);
+                continue;
+            }
+            button_reset_all_flags();
+        }
+
+        FOC_SVPWM(0, Ud, angle);
+        vTaskDelayUntil(&xLastWakeTime,
+                        1); // every FOC control task need at least 1ms delay otherwise cannot detect key press normally
+    }
+}
+
+void OpenLoopVelControlTask(void *argument) {
+    float angle = 0, Ud = 1, delta_angle = 0;
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+    while (1) {
+        if (button_press_pending_flag) {
+            if (button_left_press_pending_flag) {
+                delta_angle -= 0.01;
+                if (delta_angle < -_PI) delta_angle = -_PI;
+            } else if (button_right_press_pending_flag) {
+                delta_angle += 0.01;
+                if (delta_angle > _PI) delta_angle = _PI;
+            } else if (button_cancel_press_pending_flag) {
+                SuspendToRunOtherTask(taskSelectTaskHandle);
+                continue;
+            }
+            button_reset_all_flags();
+        }
+        angle += delta_angle;
+        FOC_SVPWM(0, Ud, angle);
+        vTaskDelayUntil(&xLastWakeTime,
+                        1); // every FOC control task need at least 1ms delay otherwise cannot detect key press normally
+    }
+}
+
+void TorqueControlTask(void *argument) {
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+    float Uq = 0;
+
+    while (1) {
+        if (button_press_pending_flag) {
+            if (button_left_press_pending_flag) {
+                Uq -= 1.0;
+            } else if (button_right_press_pending_flag) {
+                Uq += 1.0;
+            } else if (button_cancel_press_pending_flag) {
+                SuspendToRunOtherTask(taskSelectTaskHandle);
+                continue;
+            }
+            button_reset_all_flags();
+        }
+        FOC_open_loop_voltage_control_loop(Uq);
+
+        vTaskDelayUntil(&xLastWakeTime,
+                        1); // every FOC control task need at least 1ms delay otherwise cannot detect key press normally
+    }
+}
+
 void VelocityControlTask(void *argument) {
     float velocity = 0;
-    while (1) {
-        if (button_left_press_pending_flag) {
-            velocity -= 5;
-            HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-        } else if (button_right_press_pending_flag) {
-            velocity += 5;
-            HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-        }
-        button_reset_all_flags();
+    TickType_t xLastWakeTime = xTaskGetTickCount();
 
-        portENTER_CRITICAL();
+    while (1) {
+        if (button_press_pending_flag) {
+            if (button_left_press_pending_flag) {
+                velocity -= 5;
+            } else if (button_right_press_pending_flag) {
+                velocity += 5;
+            } else if (button_cancel_press_pending_flag) {
+                SuspendToRunOtherTask(taskSelectTaskHandle);
+                continue;
+            }
+            button_reset_all_flags();
+        }
+
+
         FOC_velocity_control_loop(velocity);
-        portEXIT_CRITICAL();
+        vTaskDelayUntil(&xLastWakeTime,
+                        1); // every FOC control task need at least 1ms delay otherwise cannot detect key press normally
     }
 }
 
 void PositionControlTask(void *argument) {
-    float angle = 0.35;
-    FOC_CONTROL_MODE mode = OPEN_LOOP_POSITION_CONTROL;
+    float angle = 0;
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+    gui_draw_position_mode(angle, 1);
+
     while (1) {
-        if (button_left_press_pending_flag) {
-            angle -= _PI_2;
-            HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-            if(mode) mode--;
-            else mode = 3;
-            gui_draw_mode_selection(mode);
-        } else if (button_right_press_pending_flag) {
-            angle += _PI_2;
-            HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-            mode++;
-            if(mode > 3) mode = 0;
-            gui_draw_mode_selection(mode);
+        if (button_press_pending_flag) {
+            if (button_left_press_pending_flag) {
+                angle -= _PI_2;
+            } else if (button_right_press_pending_flag) {
+                angle += _PI_2;
+            } else if (button_cancel_press_pending_flag) {
+                SuspendToRunOtherTask(taskSelectTaskHandle);
+                gui_draw_position_mode(angle, 1);
+                continue;
+            }
+            button_reset_all_flags();
+            gui_draw_position_mode(angle, 0);
         }
-        button_reset_all_flags();
 
-
-        portENTER_CRITICAL();
         FOC_position_control_loop(angle);
-        portEXIT_CRITICAL();
+        vTaskDelayUntil(&xLastWakeTime,
+                        1); // every FOC control task need at least 1ms delay otherwise cannot detect key press normally
     }
 }
+
+void SpringTask(void *argument) {
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+    while (1) {
+        if (button_press_pending_flag) {
+            if (button_cancel_press_pending_flag) {
+                SuspendToRunOtherTask(taskSelectTaskHandle);
+                continue;
+            }
+            button_reset_all_flags();
+        }
+        FOC_spring_loop(0, spring_pid);
+        vTaskDelayUntil(&xLastWakeTime,
+                        1); // every FOC control task need at least 1ms delay otherwise cannot detect key press normally
+    }
+}
+
+void DampTask(void *argument){
+
+}
+
+void KnobTask(void *argument){
+    uint8_t sector_num = 8;
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+
+    while(1){
+        if (button_press_pending_flag) {
+            if (button_cancel_press_pending_flag) {
+                SuspendToRunOtherTask(taskSelectTaskHandle);
+                continue;
+            }
+            button_reset_all_flags();
+        }
+
+        FOC_knob_loop(sector_num);
+        vTaskDelayUntil(&xLastWakeTime,
+                        1); // every FOC control task need at least 1ms delay otherwise cannot detect key press normally
+    }
+}
+
 /* USER CODE END Application */
 

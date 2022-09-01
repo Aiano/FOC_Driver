@@ -9,9 +9,11 @@
 
 #define BUTTON_Port GPIOB
 #define BUTTON_LEFT GPIO_PIN_10
-#define BUTTON_RIGHT GPIO_PIN_11
-#define BUTTON_CONFIRM GPIO_PIN_12
-#define BUTTON_CANCEL GPIO_PIN_13
+#define BUTTON_RIGHT GPIO_PIN_13
+#define BUTTON_CONFIRM GPIO_PIN_11
+#define BUTTON_CANCEL GPIO_PIN_12
+
+extern uint8_t button_press_pending_flag;
 
 extern uint8_t button_left_press_pending_flag;
 extern uint8_t button_right_press_pending_flag;
