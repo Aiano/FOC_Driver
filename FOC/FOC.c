@@ -17,7 +17,7 @@
 
 
 float zero_mechanical_angle = 0.36;
-float zero_electrical_angle = 0;
+float zero_electrical_angle = 0.891460538;
 
 float last_mechanical_angle = 0;
 uint32_t pre_tick;
@@ -34,7 +34,7 @@ void FOC_init() {
 void FOC_electrical_angle_calibration() {
     // FOC calibration
     FOC_SVPWM(0, 8, 0);
-    HAL_Delay(300);
+    HAL_Delay(400);
     zero_electrical_angle = FOC_electrical_angle();
     HAL_Delay(100);
     FOC_SVPWM(0, 0, 0);

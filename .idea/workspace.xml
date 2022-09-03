@@ -14,15 +14,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68eb4f5c-ce99-4dbb-a3e2-87d6d4f7aab3" name="变更" comment="add &quot;Knob Mode&quot;.">
-      <change afterPath="$PROJECT_DIR$/FOC/FOC_LPF.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FOC/FOC_LPF.h" afterDir="false" />
+    <list default="true" id="68eb4f5c-ce99-4dbb-a3e2-87d6d4f7aab3" name="变更" comment="add low pass filter">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/FreeRTOSConfig.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/FreeRTOSConfig.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/freertos.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/freertos.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOC/FOC.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC/FOC_PID.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC_PID.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC_Driver.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/FOC_Driver.ioc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/gui.c" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/gui.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/gui.h" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/gui.h" afterDir="false" />
     </list>
@@ -93,12 +89,12 @@
     </key>
   </component>
   <component name="RunManager" selected="OpenOCD 下载并运行.OCD FOC_Driver">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="FOC_Driver.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FOC_Driver" TARGET_NAME="FOC_Driver.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="FOC_Driver" RUN_TARGET_NAME="FOC_Driver.elf">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FOC_Driver.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FOC_Driver" TARGET_NAME="FOC_Driver.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="FOC_Driver" RUN_TARGET_NAME="FOC_Driver.elf">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -132,7 +128,8 @@
       <workItem from="1661746385982" duration="15083000" />
       <workItem from="1661826156554" duration="21865000" />
       <workItem from="1662025785439" duration="9718000" />
-      <workItem from="1662191414321" duration="3787000" />
+      <workItem from="1662191414321" duration="3986000" />
+      <workItem from="1662206002019" duration="4139000" />
     </task>
     <task id="LOCAL-00001" summary="add velocity and position control">
       <created>1661495255612</created>
@@ -162,7 +159,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662034674204</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add low pass filter">
+      <created>1662196003995</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1662196003995</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,7 +188,8 @@
     <MESSAGE value="add FreeRTOS" />
     <MESSAGE value="add GUI" />
     <MESSAGE value="add &quot;Knob Mode&quot;." />
-    <option name="LAST_COMMIT_MESSAGE" value="add &quot;Knob Mode&quot;." />
+    <MESSAGE value="add low pass filter" />
+    <option name="LAST_COMMIT_MESSAGE" value="add low pass filter" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -198,6 +203,7 @@
         <watch expression="torqueControlTaskHandle" language="ObjectiveC" />
         <watch expression="velocityControlTaskHandle" language="ObjectiveC" />
         <watch expression="positionControlTaskHandle" language="ObjectiveC" />
+        <watch expression="zero_electrical_angle" language="ObjectiveC" />
       </configuration>
     </watches-manager>
   </component>

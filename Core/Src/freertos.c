@@ -93,12 +93,13 @@ void KnobTask(void *argument);
 
 /* USER CODE END FunctionPrototypes */
 
-void StartDefaultTask(void const * argument);
+void StartDefaultTask(void const *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /* GetIdleTaskMemory prototype (linked to static allocation support) */
-void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize );
+void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer,
+                                   uint32_t *pulIdleTaskStackSize);
 
 /* USER CODE BEGIN GET_IDLE_TASK_MEMORY */
 static StaticTask_t xIdleTaskTCBBuffer;
@@ -119,7 +120,7 @@ void vApplicationGetIdleTaskMemory(StaticTask_t **ppxIdleTaskTCBBuffer, StackTyp
   * @retval None
   */
 void MX_FREERTOS_Init(void) {
-  /* USER CODE BEGIN Init */
+    /* USER CODE BEGIN Init */
     xTaskCreate(OpenLoopPosControlTask, "OpenPos", 64, NULL, 6, &openLoopPosControlTaskHandle);
     vTaskSuspend(openLoopPosControlTaskHandle);
 
@@ -143,32 +144,32 @@ void MX_FREERTOS_Init(void) {
 
     xTaskCreate(TaskSelectTask, "Select", 64, NULL, 6, &taskSelectTaskHandle);
 
-  /* USER CODE END Init */
+    /* USER CODE END Init */
 
-  /* USER CODE BEGIN RTOS_MUTEX */
+    /* USER CODE BEGIN RTOS_MUTEX */
     /* add mutexes, ... */
-  /* USER CODE END RTOS_MUTEX */
+    /* USER CODE END RTOS_MUTEX */
 
-  /* USER CODE BEGIN RTOS_SEMAPHORES */
+    /* USER CODE BEGIN RTOS_SEMAPHORES */
     /* add semaphores, ... */
-  /* USER CODE END RTOS_SEMAPHORES */
+    /* USER CODE END RTOS_SEMAPHORES */
 
-  /* USER CODE BEGIN RTOS_TIMERS */
+    /* USER CODE BEGIN RTOS_TIMERS */
     /* start timers, add new ones, ... */
-  /* USER CODE END RTOS_TIMERS */
+    /* USER CODE END RTOS_TIMERS */
 
-  /* USER CODE BEGIN RTOS_QUEUES */
+    /* USER CODE BEGIN RTOS_QUEUES */
     /* add queues, ... */
-  /* USER CODE END RTOS_QUEUES */
+    /* USER CODE END RTOS_QUEUES */
 
-  /* Create the thread(s) */
-  /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityIdle, 0, 64);
-  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+    /* Create the thread(s) */
+    /* definition and creation of defaultTask */
+    osThreadDef(defaultTask, StartDefaultTask, osPriorityIdle, 0, 64);
+    defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
-  /* USER CODE BEGIN RTOS_THREADS */
+    /* USER CODE BEGIN RTOS_THREADS */
     /* add threads, ... */
-  /* USER CODE END RTOS_THREADS */
+    /* USER CODE END RTOS_THREADS */
 
 }
 
@@ -179,14 +180,13 @@ void MX_FREERTOS_Init(void) {
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void const * argument)
-{
-  /* USER CODE BEGIN StartDefaultTask */
+void StartDefaultTask(void const *argument) {
+    /* USER CODE BEGIN StartDefaultTask */
     /* Infinite loop */
     for (;;) {
         osDelay(1);
     }
-  /* USER CODE END StartDefaultTask */
+    /* USER CODE END StartDefaultTask */
 }
 
 /* Private application code --------------------------------------------------*/
@@ -409,44 +409,69 @@ void SpringTask(void *argument) {
     }
 }
 
-void DampTask(void *argument){
+void DampTask(void *argument) {
 
 }
 
-void KnobTask(void *argument){
+void KnobTask(void *argument) {
     TickType_t xLastWakeTime = xTaskGetTickCount();
 
     // Settings
-    uint8_t sector_num = 10, k = 5, max_force = 4;
     uint8_t select_param = 0;
-    pid_knob.Kp = k;
-    pid_knob.max_u = max_force;
-    pid_knob.min_u = -max_force;
-    gui_draw_knob_mode(sector_num, k, max_force, select_param, 1);
+    const uint8_t max_select_param = 3;
+    uint8_t change_param = 0;
 
-    while(1){
+    uint8_t values[3] = {10, 5, 4}; // [0]: sector_num [1]: k [2]: max_force
+
+    pid_knob.Kp = values[1];
+    pid_knob.max_u = values[2];
+    pid_knob.min_u = -values[2];
+    gui_draw_knob_mode(values[0], values[1], values[2], select_param, change_param, 1);
+
+    while (1) {
         if (button_press_pending_flag) {
-            if(button_confirm_press_pending_flag){
+            if (button_confirm_press_pending_flag) {
+                if(select_param){
+                    change_param = !change_param;
+                }
+            } else if (button_left_press_pending_flag) {
+                if(change_param){
+                    values[select_param - 1] --;
 
-            }else if(button_left_press_pending_flag){
-                if(select_param == 0){
-                    select_param = 3;
-                }else select_param --;
-            }else if(button_right_press_pending_flag){
-                if(select_param == 3){
-                    select_param = 0;
-                }else select_param ++;
-            }
-            else if (button_cancel_press_pending_flag) {
+                    // reconfigure
+                    pid_knob.Kp = values[1];
+                    pid_knob.max_u = values[2];
+                    pid_knob.min_u = -values[2];
+                    gui_draw_knob_mode(values[0], values[1], values[2], select_param, change_param, 0);
+                }else{
+                    if (select_param == 0) {
+                        select_param = max_select_param;
+                    } else select_param--;
+                }
+            } else if (button_right_press_pending_flag) {
+                if(change_param){
+                    values[select_param - 1] ++;
+
+                    // reconfigure
+                    pid_knob.Kp = values[1];
+                    pid_knob.max_u = values[2];
+                    pid_knob.min_u = -values[2];
+                    gui_draw_knob_mode(values[0], values[1], values[2], select_param, change_param, 0);
+                }else{
+                    if (select_param == max_select_param) {
+                        select_param = 0;
+                    } else select_param++;
+                }
+            } else if (button_cancel_press_pending_flag) {
                 SuspendToRunOtherTask(taskSelectTaskHandle);
-                gui_draw_knob_mode(sector_num, k, max_force, select_param, 1);
+                gui_draw_knob_mode(values[0], values[1], values[2], select_param, change_param, 1);
                 continue;
             }
             button_reset_all_flags();
-            gui_draw_knob_mode(sector_num, k, max_force, select_param, 0);
+            gui_draw_knob_mode(values[0], values[1], values[2], select_param, change_param, 0);
         }
 
-        FOC_knob_loop(sector_num);
+        FOC_knob_loop(values[0]);
         vTaskDelayUntil(&xLastWakeTime,
                         1); // every FOC control task need at least 1ms delay otherwise cannot detect key press normally
     }

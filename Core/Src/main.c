@@ -112,11 +112,14 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
     ST7735_Init();
-    gui_draw_init();
 
+    gui_draw_init("FOC init", 1);
     FOC_init();
+
+    gui_draw_init("CS init", 0);
     cs_init();
 
+    gui_draw_init("Calibrating", 0);
     FOC_electrical_angle_calibration();
   /* USER CODE END 2 */
 
