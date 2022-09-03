@@ -140,7 +140,7 @@ void gui_draw_position_mode(float angle, uint8_t refresh) {
         ST7735_FillRectangle(0, 21, 180, 40, ST7735_WHITE);
     }
     // show parameters
-    gui_draw_parameter(0, 22, "Angle", angle * _RADIAN_TO_DEGREE);
+    gui_draw_parameter(0, 22, "Angle", angle * _RADIAN_TO_DEGREE, 0);
 }
 
 void
@@ -153,13 +153,53 @@ gui_draw_button(uint16_t x, uint16_t y, uint16_t w, uint16_t h, const char *stri
     ST7735_WriteString(x + 1, y + 1, string, Font_7x10, color, bgcolor);
 }
 
-void gui_draw_parameter(uint16_t x, uint16_t y, const char *item, int16_t value) {
+void gui_draw_parameter(uint16_t x, uint16_t y, const char *item, int16_t value, uint8_t selected) {
     char data[20], num[10];
     strcpy(data, item);
     strcat(data, ":");
     itoa(value, num, 10);
     strcat(data, num);
-    ST7735_WriteString(x, y, data, Font_7x10, ST7735_BLACK, ST7735_WHITE);
+    if (selected) {
+        ST7735_WriteString(x, y, data, Font_7x10, ST7735_BLACK, ST7735_BLUE);
+    } else {
+        ST7735_WriteString(x, y, data, Font_7x10, ST7735_BLACK, ST7735_WHITE);
+    }
+}
+
+void gui_draw_knob_mode(uint8_t sector_num, uint8_t k, uint8_t max_force, uint8_t select_param, uint8_t refresh) {
+    static const int y = 65, width = 23, height = 12;
+    static const char param_name[3][10] = {
+            "Sector",
+            "k",
+            "max_F",
+    };
+    static uint8_t values[3];
+
+    if (refresh) {
+        ST7735_FillScreenFast(ST7735_WHITE);
+
+        gui_draw_line(0, y - 3, 180, y - 3, ST7735_BLACK);
+        gui_draw_line(0, 20, 180, 20, ST7735_BLACK);
+
+        gui_draw_button(10, y, width, height, "lef", ST7735_BLACK, ST7735_WHITE);
+//    gui_draw_button(50, y, width, height, "cfm", ST7735_BLACK, ST7735_WHITE);
+        gui_draw_button(90, y, width, height, "cel", ST7735_BLACK, ST7735_WHITE);
+        gui_draw_button(130, y, width, height, "rig", ST7735_BLACK, ST7735_WHITE);
+
+        ST7735_WriteString(0, 0, "Knob Mode", Font_11x18, ST7735_BLUE, ST7735_WHITE);
+    } else {
+        ST7735_FillRectangle(0, 21, 180, 40, ST7735_WHITE);
+    }
+
+    // show parameters
+    values[0] = sector_num, values[1] = k, values[2] = max_force;
+    for (int i = 0; i < 3; ++i) {
+        if (select_param == i + 1) {
+            gui_draw_parameter(0, 22 + i * 10, param_name[i], values[i], 1);
+        } else {
+            gui_draw_parameter(0, 22 + i * 10, param_name[i], values[i], 0);
+        }
+    }
 }
 
 

@@ -34,7 +34,7 @@ void pid_set_parameters() {
 
     pid_spring.Kp = 2.0;
     pid_spring.Ki = 0.0;
-    pid_spring.Kd = -25;
+    pid_spring.Kd = -20;
     pid_spring.integral = 0;
     pid_spring.last_error = 0;
     pid_spring.max_integral = 0.0;
@@ -76,15 +76,15 @@ void pid_set_parameters() {
     pid_zero_resistance.min_u = -2.0;
     pid_zero_resistance.dead_zone = 0.0;
 
-    pid_knob.Kp = 2.0;
+    pid_knob.Kp = 5.0;
     pid_knob.Ki = 0.0;
-    pid_knob.Kd = -20;
+    pid_knob.Kd = 0;
     pid_knob.integral = 0;
     pid_knob.last_error = 0;
     pid_knob.max_integral = 0.0;
     pid_knob.min_integral = -0.0;
-    pid_knob.max_u = 1.0;
-    pid_knob.min_u = -1.0;
+    pid_knob.max_u = 4.0;
+    pid_knob.min_u = -4.0;
     pid_knob.dead_zone = 0.0;
 }
 

@@ -14,21 +14,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68eb4f5c-ce99-4dbb-a3e2-87d6d4f7aab3" name="变更" comment="add GUI">
-      <change afterPath="$PROJECT_DIR$/config/daplink_config.cfg" afterDir="false" />
+    <list default="true" id="68eb4f5c-ce99-4dbb-a3e2-87d6d4f7aab3" name="变更" comment="add &quot;Knob Mode&quot;.">
+      <change afterPath="$PROJECT_DIR$/FOC/FOC_LPF.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FOC/FOC_LPF.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/bsp_button.c" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/bsp_button.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BSP/bsp_button.h" beforeDir="false" afterPath="$PROJECT_DIR$/BSP/bsp_button.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/FreeRTOSConfig.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/FreeRTOSConfig.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/freertos.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/freertos.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOC/FOC.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC/FOC.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOC/FOC_PID.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC_PID.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC/FOC_PID.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC_PID.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC/FOC_utils.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC_utils.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC/hardware_specific/stm32_mcu.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/hardware_specific/stm32_mcu.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC/sensor/current_sense.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/sensor/current_sense.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOC_Driver.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/FOC_Driver.ioc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/gui.c" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/gui.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GUI/gui.h" beforeDir="false" afterPath="$PROJECT_DIR$/GUI/gui.h" afterDir="false" />
@@ -83,6 +76,7 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="CMakeSettings" />
     <property name="structure.view.defaults.are.configured" value="true" />
   </component>
@@ -99,12 +93,12 @@
     </key>
   </component>
   <component name="RunManager" selected="OpenOCD 下载并运行.OCD FOC_Driver">
-    <configuration name="FOC_Driver.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FOC_Driver" TARGET_NAME="FOC_Driver.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="FOC_Driver" RUN_TARGET_NAME="FOC_Driver.elf">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="FOC_Driver.elf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FOC_Driver" TARGET_NAME="FOC_Driver.elf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="FOC_Driver" RUN_TARGET_NAME="FOC_Driver.elf">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -137,7 +131,8 @@
       <workItem from="1661683880384" duration="8136000" />
       <workItem from="1661746385982" duration="15083000" />
       <workItem from="1661826156554" duration="21865000" />
-      <workItem from="1662025785439" duration="2986000" />
+      <workItem from="1662025785439" duration="9718000" />
+      <workItem from="1662191414321" duration="3787000" />
     </task>
     <task id="LOCAL-00001" summary="add velocity and position control">
       <created>1661495255612</created>
@@ -160,7 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661702195807</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add &quot;Knob Mode&quot;.">
+      <created>1662034674204</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1662034674204</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,24 +183,21 @@
     <MESSAGE value="add velocity and position control" />
     <MESSAGE value="add FreeRTOS" />
     <MESSAGE value="add GUI" />
-    <option name="LAST_COMMIT_MESSAGE" value="add GUI" />
+    <MESSAGE value="add &quot;Knob Mode&quot;." />
+    <option name="LAST_COMMIT_MESSAGE" value="add &quot;Knob Mode&quot;." />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Core/Src/freertos.c</url>
-          <line>143</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
         <watch expression="pid_zero_resistance" language="ObjectiveC" />
         <watch expression="knobTaskHandle" language="ObjectiveC" />
         <watch expression="taskSelectTaskHandle" language="ObjectiveC" />
         <watch expression="defaultTaskHandle" language="ObjectiveC" />
+        <watch expression="openLoopPosControlTaskHandle" language="ObjectiveC" />
+        <watch expression="openLoopVelControlTaskHandle" language="ObjectiveC" />
+        <watch expression="torqueControlTaskHandle" language="ObjectiveC" />
+        <watch expression="velocityControlTaskHandle" language="ObjectiveC" />
+        <watch expression="positionControlTaskHandle" language="ObjectiveC" />
       </configuration>
     </watches-manager>
   </component>

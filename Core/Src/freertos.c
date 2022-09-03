@@ -414,16 +414,36 @@ void DampTask(void *argument){
 }
 
 void KnobTask(void *argument){
-    uint8_t sector_num = 8;
     TickType_t xLastWakeTime = xTaskGetTickCount();
+
+    // Settings
+    uint8_t sector_num = 10, k = 5, max_force = 4;
+    uint8_t select_param = 0;
+    pid_knob.Kp = k;
+    pid_knob.max_u = max_force;
+    pid_knob.min_u = -max_force;
+    gui_draw_knob_mode(sector_num, k, max_force, select_param, 1);
 
     while(1){
         if (button_press_pending_flag) {
-            if (button_cancel_press_pending_flag) {
+            if(button_confirm_press_pending_flag){
+
+            }else if(button_left_press_pending_flag){
+                if(select_param == 0){
+                    select_param = 3;
+                }else select_param --;
+            }else if(button_right_press_pending_flag){
+                if(select_param == 3){
+                    select_param = 0;
+                }else select_param ++;
+            }
+            else if (button_cancel_press_pending_flag) {
                 SuspendToRunOtherTask(taskSelectTaskHandle);
+                gui_draw_knob_mode(sector_num, k, max_force, select_param, 1);
                 continue;
             }
             button_reset_all_flags();
+            gui_draw_knob_mode(sector_num, k, max_force, select_param, 0);
         }
 
         FOC_knob_loop(sector_num);

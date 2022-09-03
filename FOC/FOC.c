@@ -9,6 +9,7 @@
 #include "FOC_conf.h"
 #include "FOC_utils.h"
 #include "FOC_PID.h"
+#include "FOC_LPF.h"
 #include "hardware_api.h"
 #include "AS5600.h"
 #include "current_sense.h"
@@ -26,6 +27,7 @@ void FOC_init() {
     AS5600_init();
     _init3PWM();
     pid_set_parameters();
+    FOC_lpf_set_parameters();
     pre_tick = HAL_GetTick();
 }
 
@@ -156,7 +158,7 @@ void FOC_open_loop_voltage_control_loop(float Uq) {
  */
 void FOC_velocity_control_loop(float target_velocity) {
     static float now_velocity;
-    now_velocity = FOC_get_velocity();
+    now_velocity = FOC_low_pass_filter(&lpf_velocity, FOC_get_velocity());
     float Uq = pid_get_u(&pid_velocity, target_velocity, now_velocity);
     float electrical_angle = FOC_electrical_angle();
     FOC_SVPWM(Uq, 0, electrical_angle);
@@ -175,7 +177,7 @@ void FOC_position_control_loop(float target_angle) {
     else if (angle_error > _PI) target_angle -= _2PI;
 
     float target_velocity = pid_get_u(&pid_position, target_angle, now_angle);
-    float now_velocity = FOC_get_velocity();
+    float now_velocity = FOC_low_pass_filter(&lpf_velocity, FOC_get_velocity());
     float Uq = pid_get_u(&pid_velocity, target_velocity, now_velocity);
     float electrical_angle = FOC_electrical_angle();
     FOC_SVPWM(Uq, 0, electrical_angle);
@@ -191,7 +193,7 @@ void FOC_spring_loop(float target_angle, PID_Datatype *pid) {
     if (angle_error < -_PI) target_angle += _2PI;
     else if (angle_error > _PI) target_angle -= _2PI;
 
-    float Uq = pid_get_u(pid, target_angle, now_angle);
+    float Uq = FOC_low_pass_filter(&lpf_spring, pid_get_u(pid, target_angle, now_angle));
     float electrical_angle = FOC_electrical_angle();
     FOC_SVPWM(Uq, 0, electrical_angle);
 }
