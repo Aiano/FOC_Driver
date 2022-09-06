@@ -32,9 +32,9 @@ void pid_set_parameters() {
     pid_position.min_u = -20.0;
     pid_position.dead_zone = 0.0;
 
-    pid_spring.Kp = 2.0;
+    pid_spring.Kp = 2.5;
     pid_spring.Ki = 0.0;
-    pid_spring.Kd = -20;
+    pid_spring.Kd = -32;
     pid_spring.integral = 0;
     pid_spring.last_error = 0;
     pid_spring.max_integral = 0.0;
@@ -43,7 +43,7 @@ void pid_set_parameters() {
     pid_spring.min_u = -2.0;
     pid_spring.dead_zone = 0.0;
 
-    pid_spring_with_damp.Kp = 2.0;
+    pid_spring_with_damp.Kp = 2.5;
     pid_spring_with_damp.Ki = 0.0;
     pid_spring_with_damp.Kd = 150;
     pid_spring_with_damp.integral = 0;
@@ -56,7 +56,7 @@ void pid_set_parameters() {
 
     pid_damp.Kp = 0.0;
     pid_damp.Ki = 0.0;
-    pid_damp.Kd = 150;
+    pid_damp.Kd = 200;
     pid_damp.integral = 0;
     pid_damp.last_error = 0;
     pid_damp.max_integral = 0.0;

@@ -421,7 +421,7 @@ void KnobTask(void *argument) {
     const uint8_t max_select_param = 3;
     uint8_t change_param = 0;
 
-    uint8_t values[3] = {10, 5, 4}; // [0]: sector_num [1]: k [2]: max_force
+    uint8_t values[3] = {4, 5, 4}; // [0]: sector_num [1]: k [2]: max_force
 
     pid_knob.Kp = values[1];
     pid_knob.max_u = values[2];
