@@ -117,7 +117,7 @@ void FOC_SVPWM(float Uq, float Ud, float angle) {
 
 void FOC_Clarke_Park(float Ia, float Ib, float Ic, float angle, float *Id, float *Iq) {
     // Clarke transform
-    float mid = (1.f/3) * (Ia + Ib + Ic);
+    float mid = (1.f / 3) * (Ia + Ib + Ic);
     float a = Ia - mid;
     float b = Ib - mid;
     float i_alpha = a;
@@ -165,13 +165,18 @@ float FOC_get_velocity() {
 
 void FOC_open_loop_voltage_control_loop(float Uq) {
     float electrical_angle = FOC_electrical_angle();
-    cs_get_value();
+
+    // Current sense
     float Id, Iq;
+    cs_get_value();
     FOC_Clarke_Park(cs_value[0], cs_value[1], cs_value[2], electrical_angle, &Id, &Iq);
+    Id = FOC_low_pass_filter(&lpf_current_d, Id);
+    Iq = FOC_low_pass_filter(&lpf_current_q, Iq);
+
     FOC_SVPWM(Uq, 0, electrical_angle);
 
     // debug
-    printf("%.2f,%.2f\n", Id, Iq);
+    printf("%.1f,%.1f,%.1f,%.1f,%.1f\n", cs_value[0], cs_value[1], cs_value[2], Id, Iq);
 }
 
 /**

@@ -28,6 +28,7 @@ uint8_t cs_get_value() {
         // Reading register DR automatically clears ADC flag EOC (ADC group regular end of unitary conversion).
         // 该函数读取寄存器DR同时自动清除了EOC(End Of unitary Conversation)标志位
 
+//        cs_value[i] = HAL_ADC_GetValue(&hadc1) - cs_zero_value;
         cs_value[i] = FOC_low_pass_filter(lpf_cs + i, HAL_ADC_GetValue(&hadc1) - cs_zero_value);
 //        } else {
 //            HAL_ADC_Stop(&hadc1);

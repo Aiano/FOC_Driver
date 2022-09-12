@@ -14,11 +14,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68eb4f5c-ce99-4dbb-a3e2-87d6d4f7aab3" name="变更" comment="printf float">
+    <list default="true" id="68eb4f5c-ce99-4dbb-a3e2-87d6d4f7aab3" name="变更" comment="add Clarke Park transform">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOC/FOC.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC/FOC.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOC/FOC_LPF.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC_LPF.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FOC/FOC_LPF.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC_LPF.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FOC/sensor/current_sense.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/sensor/current_sense.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +199,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662999546848</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="add Clarke Park transform">
+      <created>1663001162202</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1663001162202</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -244,14 +252,15 @@
     <MESSAGE value="reduce freeRTOS stack size." />
     <MESSAGE value="add current sense" />
     <MESSAGE value="printf float" />
-    <option name="LAST_COMMIT_MESSAGE" value="printf float" />
+    <MESSAGE value="add Clarke Park transform" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Clarke Park transform" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/FOC/FOC_LPF.c</url>
-          <line>25</line>
+          <line>33</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
