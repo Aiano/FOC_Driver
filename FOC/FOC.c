@@ -153,7 +153,8 @@ void FOC_open_loop_voltage_control_loop(float Uq) {
     FOC_SVPWM(Uq, 0, electrical_angle);
 
     // debug
-    printf("%d,%d,%d\n", (int16_t) cs_value[0], (int16_t)cs_value[1], (int16_t)cs_value[2]);
+//    printf("%d,%d,%d\n", (int16_t) cs_value[0], (int16_t)cs_value[1], (int16_t)cs_value[2]);
+    printf("%.1f,%.1f,%.1f\n", cs_value[0], cs_value[1], cs_value[2]);
 }
 
 /**
