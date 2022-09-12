@@ -27,6 +27,7 @@ typedef enum{
 void FOC_init();
 void FOC_electrical_angle_calibration();
 void FOC_SVPWM(float Uq, float Ud, float angle);
+void FOC_Clarke_Park(float Ia, float Ib, float Ic, float angle, float *Id, float *Iq);
 float FOC_get_mechanical_angle();
 float FOC_electrical_angle();
 float FOC_get_velocity();

@@ -18,7 +18,7 @@ void FOC_lpf_set_parameters() {
 
     for (int i = 0; i < 3; ++i) {
         lpf_cs[i].last_output = 0;
-        lpf_cs[i].alpha = 0.2;
+        lpf_cs[i].alpha = 0.1;
     }
 }
 

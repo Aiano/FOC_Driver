@@ -115,6 +115,23 @@ void FOC_SVPWM(float Uq, float Ud, float angle) {
     _writeDutyCycle3PWM(Ta, Tb, Tc);
 }
 
+void FOC_Clarke_Park(float Ia, float Ib, float Ic, float angle, float *Id, float *Iq) {
+    // Clarke transform
+    float mid = (1.f/3) * (Ia + Ib + Ic);
+    float a = Ia - mid;
+    float b = Ib - mid;
+    float i_alpha = a;
+    float i_beta = _1_SQRT3 * a + _2_SQRT3 * b;
+
+    // Park transform
+    float ct = _cos(angle);
+    float st = _sin(angle);
+    *Id = i_alpha * ct + i_beta * st;
+    *Iq = i_beta * ct - i_alpha * st;
+
+    return;
+}
+
 float FOC_get_mechanical_angle() {
     return AS5600_ReadSensorRawData() / SENSOR_VALUE_RANGE * _2PI;
 }
@@ -147,14 +164,14 @@ float FOC_get_velocity() {
 }
 
 void FOC_open_loop_voltage_control_loop(float Uq) {
-    cs_get_value();
     float electrical_angle = FOC_electrical_angle();
-
+    cs_get_value();
+    float Id, Iq;
+    FOC_Clarke_Park(cs_value[0], cs_value[1], cs_value[2], electrical_angle, &Id, &Iq);
     FOC_SVPWM(Uq, 0, electrical_angle);
 
     // debug
-//    printf("%d,%d,%d\n", (int16_t) cs_value[0], (int16_t)cs_value[1], (int16_t)cs_value[2]);
-    printf("%.1f,%.1f,%.1f\n", cs_value[0], cs_value[1], cs_value[2]);
+    printf("%.2f,%.2f\n", Id, Iq);
 }
 
 /**

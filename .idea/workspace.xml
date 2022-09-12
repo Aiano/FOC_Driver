@@ -14,12 +14,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68eb4f5c-ce99-4dbb-a3e2-87d6d4f7aab3" name="变更" comment="add current sense">
+    <list default="true" id="68eb4f5c-ce99-4dbb-a3e2-87d6d4f7aab3" name="变更" comment="printf float">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOC/FOC.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FOC/FOC.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOC/FOC_LPF.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC_LPF.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC/sensor/current_sense.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/sensor/current_sense.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC/sensor/current_sense.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/sensor/current_sense.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +184,21 @@
       <option name="project" value="LOCAL" />
       <updated>1662998591868</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add current sense">
+      <created>1662999401643</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1662999401643</updated>
+    </task>
+    <task id="LOCAL-00009" summary="printf float">
+      <created>1662999546848</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1662999546848</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,7 +243,8 @@
     <MESSAGE value="add low pass filter" />
     <MESSAGE value="reduce freeRTOS stack size." />
     <MESSAGE value="add current sense" />
-    <option name="LAST_COMMIT_MESSAGE" value="add current sense" />
+    <MESSAGE value="printf float" />
+    <option name="LAST_COMMIT_MESSAGE" value="printf float" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
