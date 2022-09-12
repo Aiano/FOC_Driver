@@ -12,6 +12,7 @@ typedef struct {
 
 extern LPF_Datatype lpf_velocity;
 extern LPF_Datatype lpf_spring;
+extern LPF_Datatype lpf_cs[3];
 
 void FOC_lpf_set_parameters();
 float FOC_low_pass_filter(LPF_Datatype *lpf, float input);

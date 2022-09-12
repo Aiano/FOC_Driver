@@ -6,6 +6,7 @@
 
 LPF_Datatype lpf_velocity;
 LPF_Datatype lpf_spring;
+LPF_Datatype lpf_cs[3];
 
 
 void FOC_lpf_set_parameters() {

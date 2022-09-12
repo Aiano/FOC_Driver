@@ -147,9 +147,13 @@ float FOC_get_velocity() {
 }
 
 void FOC_open_loop_voltage_control_loop(float Uq) {
+    cs_get_value();
     float electrical_angle = FOC_electrical_angle();
+
     FOC_SVPWM(Uq, 0, electrical_angle);
 
+    // debug
+    printf("%d,%d,%d\n", cs_value[0], cs_value[1], cs_value[2]);
 }
 
 /**
