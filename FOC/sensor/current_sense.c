@@ -3,9 +3,10 @@
 #include "FOC.h"
 #include "math.h"
 #include "FOC_utils.h"
+#include "FOC_LPF.h"
 
-int16_t cs_value[3];
-uint16_t cs_zero_value = 2081;
+float cs_value[3];
+float cs_zero_value = 2081;
 
 void cs_init() {
     HAL_ADCEx_Calibration_Start(&hadc1);
@@ -26,7 +27,8 @@ uint8_t cs_get_value() {
         // Get ADC regular group conversion result.
         // Reading register DR automatically clears ADC flag EOC (ADC group regular end of unitary conversion).
         // 该函数读取寄存器DR同时自动清除了EOC(End Of unitary Conversation)标志位
-        cs_value[i] = HAL_ADC_GetValue(&hadc1) - cs_zero_value;
+
+        cs_value[i] = FOC_low_pass_filter(lpf_cs + i, HAL_ADC_GetValue(&hadc1) - cs_zero_value);
 //        } else {
 //            HAL_ADC_Stop(&hadc1);
         // 如果转换失败就返回-1

@@ -2,7 +2,7 @@
 #define FOC_DRIVER_CURRENT_SENSE_H
 #include "main.h"
 
-extern int16_t cs_value[3];
+extern float cs_value[3];
 
 void cs_init();
 uint8_t cs_get_value();

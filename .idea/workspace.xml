@@ -14,11 +14,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68eb4f5c-ce99-4dbb-a3e2-87d6d4f7aab3" name="变更" comment="reduce freeRTOS stack size.">
+    <list default="true" id="68eb4f5c-ce99-4dbb-a3e2-87d6d4f7aab3" name="变更" comment="add current sense">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOC/FOC.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOC/FOC_LPF.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC_LPF.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC/FOC_LPF.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC_LPF.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOC/sensor/current_sense.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/sensor/current_sense.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOC/sensor/current_sense.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/sensor/current_sense.h" afterDir="false" />
     </list>
@@ -179,7 +178,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662997219422</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add current sense">
+      <created>1662998591868</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1662998591868</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -223,21 +229,22 @@
     <MESSAGE value="add &quot;Knob Mode&quot;." />
     <MESSAGE value="add low pass filter" />
     <MESSAGE value="reduce freeRTOS stack size." />
-    <option name="LAST_COMMIT_MESSAGE" value="reduce freeRTOS stack size." />
+    <MESSAGE value="add current sense" />
+    <option name="LAST_COMMIT_MESSAGE" value="add current sense" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/FOC/FOC_LPF.c</url>
+          <line>25</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
-        <watch expression="pid_zero_resistance" language="ObjectiveC" />
-        <watch expression="knobTaskHandle" language="ObjectiveC" />
-        <watch expression="taskSelectTaskHandle" language="ObjectiveC" />
-        <watch expression="defaultTaskHandle" language="ObjectiveC" />
-        <watch expression="openLoopPosControlTaskHandle" language="ObjectiveC" />
-        <watch expression="openLoopVelControlTaskHandle" language="ObjectiveC" />
-        <watch expression="torqueControlTaskHandle" language="ObjectiveC" />
-        <watch expression="velocityControlTaskHandle" language="ObjectiveC" />
-        <watch expression="positionControlTaskHandle" language="ObjectiveC" />
-        <watch expression="zero_electrical_angle" language="ObjectiveC" />
+        <watch expression="cs_value" language="ObjectiveC" />
       </configuration>
     </watches-manager>
   </component>

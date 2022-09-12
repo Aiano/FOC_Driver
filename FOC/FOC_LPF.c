@@ -15,6 +15,11 @@ void FOC_lpf_set_parameters() {
 
     lpf_spring.last_output = 0;
     lpf_spring.alpha = 0.2;
+
+    for (int i = 0; i < 3; ++i) {
+        lpf_cs[i].last_output = 0;
+        lpf_cs[i].alpha = 0.2;
+    }
 }
 
 float FOC_low_pass_filter(LPF_Datatype *lpf, float input) {
