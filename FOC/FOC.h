@@ -34,7 +34,7 @@ float FOC_get_velocity();
 
 // Some modes to choose
 void FOC_open_loop_voltage_control_loop(float Uq);
-
+void FOC_current_control_loop(float target_Iq);
 void FOC_velocity_control_loop(float target_velocity);
 void FOC_position_control_loop(float target_angle);
 void FOC_spring_loop(float target_angle, PID_Datatype *pid);

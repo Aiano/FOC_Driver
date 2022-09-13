@@ -31,6 +31,7 @@
 
 #include "FOC.h"
 #include "FOC_utils.h"
+#include "FOC_conf.h"
 #include "current_sense.h"
 
 #include "gui.h"
@@ -126,7 +127,7 @@ void MX_FREERTOS_Init(void) {
     xTaskCreate(OpenLoopVelControlTask, "OpenVel", 64, NULL, 6, &openLoopVelControlTaskHandle);
     vTaskSuspend(openLoopVelControlTaskHandle);
 
-    xTaskCreate(TorqueControlTask, "TorCtrl", 64, NULL, 6, &torqueControlTaskHandle);
+    xTaskCreate(TorqueControlTask, "TorCtrl", 128, NULL, 6, &torqueControlTaskHandle);
     vTaskSuspend(torqueControlTaskHandle);
 
     xTaskCreate(VelocityControlTask, "VelCtrl", 64, NULL, 6, &velocityControlTaskHandle);
@@ -320,6 +321,7 @@ void OpenLoopVelControlTask(void *argument) {
     }
 }
 
+#ifdef FOC_MODE_VOLTAGE_CONTROL
 void TorqueControlTask(void *argument) {
     TickType_t xLastWakeTime = xTaskGetTickCount();
     float Uq = 0;
@@ -342,6 +344,31 @@ void TorqueControlTask(void *argument) {
                         1); // every FOC control task need at least 1ms delay otherwise cannot detect key press normally
     }
 }
+#endif
+#ifdef FOC_MODE_CURRENT_CONTROL
+void TorqueControlTask(void *argument) {
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+    float Iq = 0;
+
+    while (1) {
+        if (button_press_pending_flag) {
+            if (button_left_press_pending_flag) {
+                Iq -= 100.0;
+            } else if (button_right_press_pending_flag) {
+                Iq += 100.0;
+            } else if (button_cancel_press_pending_flag) {
+                SuspendToRunOtherTask(taskSelectTaskHandle);
+                continue;
+            }
+            button_reset_all_flags();
+        }
+        FOC_current_control_loop(Iq);
+
+        vTaskDelayUntil(&xLastWakeTime,
+                        1); // every FOC control task need at least 1ms delay otherwise cannot detect key press normally
+    }
+}
+#endif
 
 void VelocityControlTask(void *argument) {
     float velocity = 0;

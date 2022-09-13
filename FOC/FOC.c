@@ -179,6 +179,25 @@ void FOC_open_loop_voltage_control_loop(float Uq) {
     printf("%.1f,%.1f,%.1f,%.1f,%.1f\n", cs_value[0], cs_value[1], cs_value[2], Id, Iq);
 }
 
+void FOC_current_control_loop(float target_Iq){
+    float electrical_angle = FOC_electrical_angle();
+
+    // Current sense
+    float Id, Iq;
+    cs_get_value();
+    FOC_Clarke_Park(cs_value[0], cs_value[1], cs_value[2], electrical_angle, &Id, &Iq);
+    Id = FOC_low_pass_filter(&lpf_current_d, Id);
+    Iq = FOC_low_pass_filter(&lpf_current_q, Iq);
+
+    float Uq = pid_get_u(&pid_current_q, target_Iq, Iq);
+    float Ud = pid_get_u(&pid_current_d, 0, Id);
+
+    FOC_SVPWM(Uq, Ud, electrical_angle);
+
+    // debug
+    printf("%.1f,%.1f,%.1f,%.1f,%.1f\n", cs_value[0], cs_value[1], cs_value[2], Id, Iq);
+}
+
 /**
  *
  * @param target_velocity unit: rad/s

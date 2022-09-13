@@ -9,6 +9,9 @@ PID_Datatype pid_damp;
 PID_Datatype pid_zero_resistance;
 PID_Datatype pid_knob;
 
+PID_Datatype pid_current_d;
+PID_Datatype pid_current_q;
+
 void pid_set_parameters() {
     pid_velocity.Kp = 0.08;
     pid_velocity.Ki = 0.03; // 0.03
@@ -86,6 +89,28 @@ void pid_set_parameters() {
     pid_knob.max_u = 4.0;
     pid_knob.min_u = -4.0;
     pid_knob.dead_zone = 0.0;
+
+    pid_current_d.Kp = 0.01;
+    pid_current_d.Ki = 0.0;
+    pid_current_d.Kd = 0;
+    pid_current_d.integral = 0;
+    pid_current_d.last_error = 0;
+    pid_current_d.max_integral = 0.0;
+    pid_current_d.min_integral = -0.0;
+    pid_current_d.max_u = 8.0;
+    pid_current_d.min_u = -8.0;
+    pid_current_d.dead_zone = 0.0;
+
+    pid_current_q.Kp = 0.01;
+    pid_current_q.Ki = 0.0;
+    pid_current_q.Kd = 0;
+    pid_current_q.integral = 0;
+    pid_current_q.last_error = 0;
+    pid_current_q.max_integral = 0.0;
+    pid_current_q.min_integral = -0.0;
+    pid_current_q.max_u = 8.0;
+    pid_current_q.min_u = -8.0;
+    pid_current_q.dead_zone = 0.0;
 }
 
 /**
