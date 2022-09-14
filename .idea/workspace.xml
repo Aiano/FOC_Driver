@@ -14,14 +14,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="68eb4f5c-ce99-4dbb-a3e2-87d6d4f7aab3" name="变更" comment="Current sense detection">
+    <list default="true" id="68eb4f5c-ce99-4dbb-a3e2-87d6d4f7aab3" name="变更" comment="Current sense close loop">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/adc.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/adc.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/freertos.c" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/freertos.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOC/FOC.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC/FOC.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FOC/FOC_PID.c" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC_PID.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC/FOC_PID.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC_PID.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FOC/FOC_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/FOC/FOC_conf.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FOC_Driver.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/FOC_Driver.ioc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,6 +99,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="OCD FOC_Driver" type="com.jetbrains.cidr.embedded.openocd.conf.type" factoryName="com.jetbrains.cidr.embedded.openocd.conf.factory" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="FOC_Driver" TARGET_NAME="FOC_Driver.elf" CONFIG_NAME="Debug" version="1" RUN_TARGET_PROJECT_NAME="FOC_Driver" RUN_TARGET_NAME="FOC_Driver.elf">
       <openocd version="1" gdb-port="3333" telnet-port="4444" board-config="D:\FOC\Software\FOC_Driver\config\daplink_config.cfg" reset-type="INIT" download-type="UPDATED_ONLY">
         <debugger kind="GDB" isBundled="true" />
@@ -133,7 +137,8 @@
       <workItem from="1662206002019" duration="4139000" />
       <workItem from="1662477401521" duration="1851000" />
       <workItem from="1663084691602" duration="366000" />
-      <workItem from="1663092240492" duration="1237000" />
+      <workItem from="1663092240492" duration="3076000" />
+      <workItem from="1663118835907" duration="1000" />
     </task>
     <task id="LOCAL-00001" summary="add velocity and position control">
       <created>1661495255612</created>
@@ -212,7 +217,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663002280014</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Current sense close loop">
+      <created>1663093501630</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1663093501630</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,7 +272,8 @@
     <MESSAGE value="printf float" />
     <MESSAGE value="add Clarke Park transform" />
     <MESSAGE value="Current sense detection" />
-    <option name="LAST_COMMIT_MESSAGE" value="Current sense detection" />
+    <MESSAGE value="Current sense close loop" />
+    <option name="LAST_COMMIT_MESSAGE" value="Current sense close loop" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

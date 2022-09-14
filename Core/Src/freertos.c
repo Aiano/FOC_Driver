@@ -364,8 +364,8 @@ void TorqueControlTask(void *argument) {
         }
         FOC_current_control_loop(Iq);
 
-        vTaskDelayUntil(&xLastWakeTime,
-                        1); // every FOC control task need at least 1ms delay otherwise cannot detect key press normally
+        //vTaskDelayUntil(&xLastWakeTime,
+//                        1); // every FOC control task need at least 1ms delay otherwise cannot detect key press normally
     }
 }
 #endif
