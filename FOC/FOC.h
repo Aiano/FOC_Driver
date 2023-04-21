@@ -9,6 +9,8 @@
 
 #include "FOC_PID.h"
 
+typedef unsigned char uint8_t;
+
 typedef enum{
     OPEN_LOOP_POSITION_CONTROL = 0,
     OPEN_LOOP_SPEED_CONTROL,
